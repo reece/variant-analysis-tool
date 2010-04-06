@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+ <head>
+   <title>Genome Commons &gt; {{ pagetitle }}</title>
+   <link href="/static/styles/glike.css" rel="stylesheet"
+         type="text/css" />
+ </head>
+
+ <body>
+
+   <div id="header">
+	 <h2>{% block pagetitle %}(pagetitle){% endblock pagetitle %}</h2>
+   </div>
+
+   <div id="bodycontent">
+	 {% block bodycontent %}(bodycontent){% endblock bodycontent %}
+   </div>
+
+   <div class="footer">
+	 query path: {{ path }}
+   </div>
+
+ </body>
+
+</html>

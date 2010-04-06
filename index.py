@@ -1,11 +1,11 @@
 import wsgiref.handlers
 from google.appengine.ext import webapp
-from Guesser import Guesser
+from VAT import VAT
 
 
 def main():
     application = webapp.WSGIApplication([
-            ('/.*', Guesser)],
+            ('/.*', VAT)],
             debug=True)
     wsgiref.handlers.CGIHandler().run(application)
 

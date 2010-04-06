@@ -4,39 +4,58 @@ import wsgiref.handlers
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from Bio import Entrez
+from Bio import SeqIO
+
+Entrez.email = 'reece@berkeley.edu'
+Entrez.tool = 'Genome Commons > Variant Analysis Tool'
 
 class VAT(webapp.RequestHandler):
-    def get(self):
-        path = self.request.path
+    def _render(self,vals):
+        page_vars = { 'pagetitle': 'Variant Analysis Tool',
+                      'path': self.request.path,
+                      'acc': self.request.get('acc') }
+        if vals != None:
+            page_vars.update(vals)
         temp = os.path.join(
             os.path.dirname(__file__),
             'templates/VAT.html')
-        self.response.out.write( template.render(
-                temp,
-                { 
-                    'path': path,
-                    'pagetitle': 'Variant Analysis Tool' 
-                    }
-                ))
+        return template.render(
+            temp, page_vars)
+
+
+    def get(self):
+        self.response.out.write( self._render(None) )
 
     def post(self):
-        stguess = self.request.get('guess')
-        try:
-            guess = int(stguess)
-        except:
-            guess = -1
+        acc = self.request.get('acc')
+        vs = self.request.get('varspec')
+        handle = Entrez.esearch(db='nucleotide', term=acc)
+        record = Entrez.read(handle)
+        handle.close()
 
-        answer = 42
-        if guess == answer:
-            msg = 'Congratulations!'
-        elif guess < 0:
-            msg = 'Please provide a number guess'
-        elif guess < answer:
-            msg = 'Your guess is too low'
-        else:
-            msg = 'Your guess is too high'
+        if int(record['Count']) > 1:
+            self.response.out.write(
+                self._render( { 'error': 'Error: '+record['Count']+' records returned.' } )
+                )
+            return
 
-        self.response.out.write('<h1>VAT</h1>>\n')
-        self.response.out.write('<p>Guess:'+stguess+'</p>\n')
-        self.response.out.write('<p>'+msg+'</p>')
-        self.response.out.write(self.formstring)
+        gi = record['IdList'][0]
+        gi = 238018044
+        handle = Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
+        record = handle.read()
+        self.response.out.write( self._render( {
+                    'record': record
+                    } ) )
+        handle.close()
+
+#        handle = Entrez.efetch(db='nucleotide', id=gi, rettype='xml')
+#        r = Entrez.read(handle)
+#        .next()
+#                    'gi': gi,
+#                    'name': record.name,
+#                    'description': record.description,
+#                    'record': record
+#                    } ) )
+        handle.close()
+
+        return

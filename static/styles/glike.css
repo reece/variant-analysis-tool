@@ -2,6 +2,38 @@ body {
     font-family: arial, san-serif;
 }
 
+#header, #footer {
+    background-color: #dfd;
+    height: 100%;
+    overflow:hidden;
+    padding: 7px;
+    border-top: thin solid #060;
+    border-bottom: thin solid #060;
+}
+
+#header {
+	margin-bottom: 5px;
+	padding: 10px;
+}
+
+#header h1, #header h2 {
+	margin: 3px 0px 3px 0px;
+}
+
+#header h1 {
+    font-size: 20px;
+}
+#header h2 {
+    font-size: 15px;
+    color: #060;
+}
+
+#footer {
+	margin-top: 5px;
+}
+
+
+
 div.querycomment {
 	margin: 0;
 	font-size: small;
@@ -9,46 +41,40 @@ div.querycomment {
 	color: #666;
 }
 
+.note {
+	color: #060;
+	font-size: small;
+	font-style: italic;
+}
+
 fieldset.query {
-	border: thin solid #36c;
+	border: thin solid #060;
 	margin: 10px 20px 10px 20px;
 }
 
 fieldset.query legend {
-	border-left: thin solid #36c;
-	border-right: thin solid #36c;
-	border-top: none;
-	border-bottom: none;
-	background: #dde;
+	border: thin solid #060;
+	background:  #dfd;
 }
 
 table.query {
 	border: none;
 }
-
-
-#header, #footer {
-    background-color: #dde;
-    height: 100%;
-    overflow:hidden;
-    padding: 7px;
-    border-top: 1px solid #36c;
-    border-bottom: 1px solid #36c;
+table.query td,table.query tr {
+	vertical-align: top;
+	padding: 5px;
 }
 
-#header {
-	margin-bottom: 5px;
+div.error {
+	margin: 20px 50px 20px 50px;
+	border: thin solid red;
+	color: red;
+	background: #fee;
+	padding: 10px;
 }
 
-#footer {
-	margin-top: 5px;
-}
-
-#header h1 {
-    font-size: 20px;
-    float: left;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0 0 0 .3em;
+pre.monospace {
+	font-family: courier new;
+	color: #666;
 }
 

@@ -5,4 +5,26 @@ from Bio import SeqIO
 from Bio import Entrez
 Entrez.email = 'reece@berkeley.edu'
 
-handle = Entrez.einfo(db='nucleotide',rettype='xml',id=term)
+# handle = Entrez.esearch(db='nucleotide',term='NM_004006.2')
+# record = Entrez.read(handle)
+# handle.close()
+# 
+# if int(record['Count']) > 1:
+#     sgb_elf.response.out.write(
+#         self._render( { 'error': 'Error: '+record['Count']+' records returned.' } )
+#         )
+#     exit
+# 
+# gi = record['IdList'][0]
+# print gi
+# 
+
+gi = 238018044
+handle = Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
+r = SeqIO.parse(handle,'gb').next()
+print r.description
+
+#for record in SeqIO.parse(handle,'gb'):
+#    print record.annotations
+
+handle.close()

@@ -11,14 +11,14 @@
  <body>
 
    <div id="header">
-	 <h2>{% block pagetitle %}(pagetitle){% endblock pagetitle %}</h2>
+	 <h1>Genome Commons &gt; {{ pagetitle }}</h1>
    </div>
 
    <div id="bodycontent">
 	 {% block bodycontent %}(bodycontent){% endblock bodycontent %}
    </div>
 
-   <div class="footer">
+   <div id="footer">
 	 query path: {{ path }}
    </div>
 

@@ -13,7 +13,10 @@ class VAT(webapp.RequestHandler):
             'templates/VAT.html')
         self.response.out.write( template.render(
                 temp,
-                { 'path': path }
+                { 
+                    'path': path,
+                    'pagetitle': 'Variant Analysis Tool' 
+                    }
                 ))
 
     def post(self):

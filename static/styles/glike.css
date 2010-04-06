@@ -2,27 +2,46 @@ body {
     font-family: arial, san-serif;
 }
 
-a
-{
-    color: blue;
+div.querycomment {
+	margin: 0;
+	font-size: small;
+	font-style: italic;
+	color: #666;
 }
 
-#header h1 a {
-    text-decoration: none;
-    color: black;
+fieldset.query {
+	border: thin solid #36c;
+	margin: 10px 20px 10px 20px;
 }
 
-h1, h2, h3, h4 {
-    margin-bottom: 0;
+fieldset.query legend {
+	border-left: thin solid #36c;
+	border-right: thin solid #36c;
+	border-top: none;
+	border-bottom: none;
+	background: #dde;
 }
 
-#header {
+table.query {
+	border: none;
+}
+
+
+#header, #footer {
     background-color: #dde;
-    border-top: 3px solid #36c;
     height: 100%;
     overflow:hidden;
     padding: 7px;
-    margin-top: 5px;
+    border-top: 1px solid #36c;
+    border-bottom: 1px solid #36c;
+}
+
+#header {
+	margin-bottom: 5px;
+}
+
+#footer {
+	margin-top: 5px;
 }
 
 #header h1 {
@@ -33,32 +52,3 @@ h1, h2, h3, h4 {
     padding: 0 0 0 .3em;
 }
 
-#header li {
-    font-size: 14px;
-    display: inline;
-    padding: .5em;
-}
-
-#header ul {
-    list-style: none;
-    text-align: right;
-    float:right;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0;
-}
-
-#header li a.selected {
-    color: black;
-    text-decoration: none;
-}
-
-
-div.footer {
-    background-color: #dde;
-    border-top: 1px solid #36c;
-    height: 100%;
-    overflow:hidden;
-    padding: 7px;
-    margin-top: 5px;
-}

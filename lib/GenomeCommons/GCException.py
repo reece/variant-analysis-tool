@@ -1,0 +1,3 @@
+
+class GCException(Exception): pass
+

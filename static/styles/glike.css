@@ -2,6 +2,13 @@ body {
     font-family: arial, san-serif;
 }
 
+hr {
+	color: #666;
+	background-color: #060;
+	height: 2px;
+	border: 0;
+}
+
 #header, #footer {
     background-color: #dfd;
     height: 100%;
@@ -16,16 +23,15 @@ body {
 	padding: 10px;
 }
 
-#header h1, #header h2 {
-	margin: 3px 0px 3px 0px;
-}
-
 #header h1 {
+	margin: 3px 0px 3px 0px;
     font-size: 20px;
 }
-#header h2 {
-    font-size: 15px;
+
+#header span.about {
+    font-size: normal;
     color: #060;
+	font-weight: bold;
 }
 
 #footer {
@@ -55,14 +61,27 @@ fieldset.query {
 fieldset.query legend {
 	border: thin solid #060;
 	background:  #dfd;
+	color: #060;
+	font-weight: bold;
 }
 
-table.query {
+table.query, table.results {
 	border: none;
+	width: 100%;
+	border-collapse: collapse;
 }
 table.query td,table.query tr {
 	vertical-align: top;
 	padding: 5px;
+}
+
+table.results tr td {
+	border: thin solid #060;
+	padding: 2px;
+}
+table.results tr>td:first-child {
+	background: #dfd;
+	text-align: right;
 }
 
 div.error {

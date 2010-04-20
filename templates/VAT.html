@@ -6,8 +6,19 @@ Facilitates routine analysis of resequencing results
 
 {% block bodycontent %}
 
+<!--
+http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
+&#9654; solid right
+&#9698; solid lower right
+&#9660; solid down
+&#9655; empty right
+&#9727; empty lower right
+&#9661; empty down
+-->
+
+
 <fieldset class="query">
-<legend>Variant Query</legend>
+<legend>&#9660; Variant Query</legend>
 
 <div class="note">
 Enter a sequence variant below
@@ -35,17 +46,20 @@ description of sequence variation</a>.
 
 </fieldset>
 
-{% if gi %}
-gi: {{ gi }}
-{% endif %}
+<div id='results'>
+  <table class='results'>
+	<tr> <td>gi</td> <td>{{gi}}</td> </tr>
+	<tr> <td>id</td> <td>{{id}}</td> </tr>
+	<tr> <td>name</td> <td>{{name}}</td> </tr>
+	<tr> <td>description</td> <td>{{description}}</td> </tr>
+  </table>
+</div> <!-- id='results' -->
 
 {% if record %}
-<div id='results'>
 <hr>
-<pre style="font-family: monospace">
-   {% block record %}{{ record }}{% endblock record %}
+<pre>
+{{record}}
 </pre>
-</div <!-- id='results' -->>
 {% endif %}
 
 {% endblock bodycontent %}

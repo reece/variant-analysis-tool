@@ -13,7 +13,7 @@ hr {
     background-color: #dfd;
     height: 100%;
     overflow:hidden;
-    padding: 7px;
+    padding: 2px 7px 2px 7px;
     border-top: thin solid #060;
     border-bottom: thin solid #060;
 }
@@ -39,8 +39,7 @@ hr {
 }
 
 
-
-div.querycomment {
+div.inputcomment {
 	margin: 0;
 	font-size: small;
 	font-style: italic;
@@ -53,16 +52,17 @@ div.querycomment {
 	font-style: italic;
 }
 
-fieldset.query {
+fieldset {
 	border: thin solid #060;
-	margin: 10px 20px 10px 20px;
+	margin: 10px 0px 10px 0px;
 }
 
-fieldset.query legend {
+fieldset legend {
 	border: thin solid #060;
 	background:  #dfd;
 	color: #060;
 	font-weight: bold;
+	font-size: smaller;
 }
 
 table.query, table.results {
@@ -84,6 +84,23 @@ table.results tr>td:first-child {
 	text-align: right;
 }
 
+
+table.summary {
+	width: 100%;
+	border: none; /* thin solid gray; */
+	font-size: smaller;
+}
+table.summary th {
+	color: gray;
+	text-align: right;
+	width: 10%;
+}
+table.summary td {
+	text-align: left;
+	width: 90%;
+}
+
+
 div.error {
 	margin: 20px 50px 20px 50px;
 	border: thin solid red;
@@ -96,4 +113,37 @@ pre.monospace {
 	font-family: courier new;
 	color: #666;
 }
+
+
+
+ul.tab {
+	color: #060;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    vertical-align: middle;
+}
+ul.tab li {
+	background: #dfd;
+	border: thin solid #060;
+	font-weight: bold;
+	margin: 0px 5px 2px 0px;
+    display: inline;
+    font-size: 14px;
+    padding: 1px 10px 1px 10px;
+}
+ul.tab li.selected {
+	background: #060;
+	color: white;
+}
+ul.tab li.loading {
+}
+
+div.content {
+	border: thin solid #060;
+	height: 300px;
+	width: 100%;
+}
+
 

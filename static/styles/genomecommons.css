@@ -38,6 +38,13 @@ hr {
 	margin-top: 5px;
 }
 
+#login {
+	font-size: smaller;
+	border: thin solid #999;
+	background: #eee;
+	padding: 2px;
+	float: right;
+}
 
 div.inputcomment {
 	margin: 0;

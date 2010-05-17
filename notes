@@ -11,3 +11,19 @@ You can also get the result using eFetch.(7/9/07)
 
 
 
+VariantSpec should provide a way to translate among vs
+Perhaps as a superclass with children for specific specs?
+
+
+
+
+from vs:
+c -> g -> p
+
+g -> gi -> coords -> rel snps, browser
+        -> gene -> generif, pubs, OMIM, GO
+p -> AC -> strx, features, go
+  -> homology
+  -> polyphen, SIFT, others
+
+linkout

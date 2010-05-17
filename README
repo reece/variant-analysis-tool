@@ -1,7 +1,7 @@
 Genome Commons Variant Annotation Tool
 Reece Hart <reece@berkeley.edu>
 
-[future...] gc-vat is a web-based tool to facilitate the annotation of
+[future...] vat is a web-based tool to facilitate the annotation of
 genome variants.  The input is a single variant using standard HGVS
 nomenclature [1], and the output is a web page with publicly available
 information relevant to inferring possible impacts of the variant.
@@ -9,12 +9,26 @@ information relevant to inferring possible impacts of the variant.
 
 Output goals:
 * Gene Information: Accession, locus, 
+g.xx <-> c.xx -> r.xx -> p.xx
 * Genomic Data: miRNA, TF binding, CpG, methylation, ChIP data, CNV, etc.
 * Variant Information: dbSNP, COSMIC, LSDB info
 * Protein: Isoforms, Features, Structure, SIFT, PolyPhen
 * Evolution: nucleotide and amino acid homology (orthology+paralogy)
 * Pathway, Function, Disease: OMIM, KEGG disease, GO, ICD-9/10, SnoMed
-* Literature and Links: GeneReviews, PubMed, GeneRIF, x-refs/linkout
+* Literature and Links: GeneReviews, PubMed, GeneRIF, x-refs/linkout, Trials
 * Microarray data: ArrayExpress, GEO, NextBio
-* Expert x-ref?
+* Disease/Gene Expert links?
+
+
+Features:
+* subscribe (RSS and/or email) to gene and variants
+* 
+
+
+Naming:
+- http://www.hgvs.org/mutnomen/
+- http://www.emqn.org/emqn/Mutation-Nomenclature.html
+- BIC:
+- Simple names? (delta508, Factor V Leiden)
+- LRG: http://www.lrg-sequence.org
 

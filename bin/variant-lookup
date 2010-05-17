@@ -1,0 +1,16 @@
+#!/usr/bin/python -tt
+
+import os
+import sys
+
+sys.path.insert( 0, os.path.join(
+	os.path.dirname(os.path.realpath(__file__)),
+	'..', 'lib'
+	))
+
+import GenomeCommons.VariantAnalyzer
+
+varspec = 'AB026906.1:c.274G>T'
+
+va = GenomeCommons.VariantAnalyzer.VariantAnalyzer(varspec)
+va.dome()

@@ -11,6 +11,5 @@ sys.path.insert( 0, os.path.join(
 import GenomeCommons.VariantAnalyzer
 
 varspec = 'AB026906.1:c.274G>T'
-
 va = GenomeCommons.VariantAnalyzer.VariantAnalyzer(varspec)
-va.dome()
+va.print_summary()

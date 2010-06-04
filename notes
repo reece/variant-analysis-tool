@@ -27,3 +27,23 @@ p -> AC -> strx, features, go
   -> polyphen, SIFT, others
 
 linkout
+
+
+
+
+* Eutils
+Entrez Database			Primary ID		E-Utility Database Name
+3D Domains				3D SDI			domains
+Domains					PSSM-ID			cdd
+Genome					Genome ID		genome
+Nucleotide				GI number		nucleotide
+OMIM					MIM number		omim
+PopSet					Popset ID		popset
+Protein					GI number		protein
+ProbeSet				GEO ID			geo
+PubMed					PMID			pubmed
+Structure				MMDB ID			structure
+SNP						SNP ID			snp
+Taxonomy				TAXID			taxonomy
+UniGene					UniGene ID		unigene
+UniSTS					UniSTS ID		unists

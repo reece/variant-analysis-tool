@@ -7,7 +7,7 @@ nomenclature [1], and the output is a web page with publicly available
 information relevant to inferring possible impacts of the variant.
 
 
-Output goals:
+Eventual output goals:
 * Gene Information: Accession, locus, 
 g.xx <-> c.xx -> r.xx -> p.xx
 * Genomic Data: miRNA, TF binding, CpG, methylation, ChIP data, CNV, etc.

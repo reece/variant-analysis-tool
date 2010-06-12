@@ -9,25 +9,28 @@ A: Use the following eSearch query: "100000:200000[Base Position] AND
 You can also get the result using eFetch.(7/9/07)
 
 
-
-
 VariantSpec should provide a way to translate among vs
 Perhaps as a superclass with children for specific specs?
 
 
-
-
 from vs:
-c -> g -> p
+c/g -> gi
 
-g -> gi -> coords -> rel snps, browser
-        -> gene -> generif, pubs, OMIM, GO
-p -> AC -> strx, features, go
+c/g gi -> coords
+  	   -> rel snps
+	   -> p gi
+
+p gi -> gene
+    -> browser
+  	-> AC
+  -> strx, features, go
   -> homology
   -> polyphen, SIFT, others
 
-linkout
+        -> generif, pubs, OMIM, GO
 
+
+linkout
 
 
 
@@ -47,3 +50,5 @@ SNP						SNP ID			snp
 Taxonomy				TAXID			taxonomy
 UniGene					UniGene ID		unigene
 UniSTS					UniSTS ID		unists
+
+

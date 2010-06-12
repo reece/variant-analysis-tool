@@ -11,6 +11,7 @@
 # - http://www.hgvs.org/mutnomen/
 #   (with LRG support: http://www.lrg-sequence.org)
 # - http://www.emqn.org/emqn/Mutation-Nomenclature.html
+# - http://www.humgen.nl/mutalyzer/1.0.1/mutationcheck_help.html
 # - BIC:
 # - variant names (e.g., delta508, Factor V Leiden)
 
@@ -36,11 +37,11 @@ class HGVSVarSpec(object):
 		self.varspec = varspec
 		self.accession = None
 		self.type = None
-		self.variantlist = None
+		self.varlist = None
 
-		# TODO: The following regexp matches a subset of the HGVS variant spec
-		
-		varspec_re = re.compile('^([^:]+):([cgmpr])\.(.+)')
+		# recognize only g. and p. references with singleton
+		# changes; fail on c,m,r, or compound variants
+		varspec_re = re.compile('^([^:]+):([gp])\.(.+)')
 		m = varspec_re.match(self.varspec)
 		if m == None:
 			raise InvalidVariantSyntax

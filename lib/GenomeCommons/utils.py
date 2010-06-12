@@ -8,7 +8,7 @@ import string
 
 import Bio.Entrez
 import Bio.SeqIO
-import GenomeCommons.Exception as Exception
+from GenomeCommons.Exceptions import *
 
 from memoize import memoize
 
@@ -25,9 +25,12 @@ def ac_to_gis(ac):
 @memoize
 def ac_to_gi(ac):
 	gis = ac_to_gis(ac)
-	if len(gis) > 1:
-		raise Exception('more than one record returned for term %s'
-						% (ac))
+	if len(gis) == 0:
+		raise Error(
+			'%s: no such nucleotide record' % (ac))
+	elif len(gis) > 1:
+		raise Error(
+			'more than one record returned for term %s' % (ac))
 	return gis[0]
 
 @memoize

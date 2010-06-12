@@ -15,11 +15,27 @@
 # - BIC:
 # - variant names (e.g., delta508, Factor V Leiden)
 
+# TODO
+# - more complete specification
+# - subclasses generic mutations (enable other representations)
+# - warning exception class (or other mechanism?)
+#   - sequence type appropriate for ref seq
+#   - versioned sequence
+#   - c. ATG :== pos 1
+#   - insertion -> dup
+#   - x_yOPn => assert(y-x+1 == n)
+#   - ins requires x_y
 
 import re
 import exceptions
 
-class InvalidVariantSyntax(Exception):
+import Bio.Alphabet
+
+from Exceptions import *
+
+aa_re_t = '|'.join(Bio.Alphabet.ThreeLetterProtein.letters)
+
+class InvalidVariantSyntax(Error):
 	def __init__(self): pass
 
 class HGVSVarSpec(object):
@@ -41,7 +57,7 @@ class HGVSVarSpec(object):
 
 		# recognize only g. and p. references with singleton
 		# changes; fail on c,m,r, or compound variants
-		varspec_re = re.compile('^([^:]+):([gp])\.(.+)')
+		varspec_re = re.compile('^([^:]+):([cgp])\.(.+)')
 		m = varspec_re.match(self.varspec)
 		if m == None:
 			raise InvalidVariantSyntax
@@ -50,3 +66,10 @@ class HGVSVarSpec(object):
 
 	def __str__(self):
 		return self.varspec
+
+	def validate(self):
+		if re.search('^(?:AC|AJ|AY|NM_|NP_)\d+$',self.accession):
+			raise Warning(
+				'%s is an unversioned reference sequence'
+				% (self.accession))
+		return

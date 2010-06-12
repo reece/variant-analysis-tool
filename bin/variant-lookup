@@ -2,6 +2,7 @@
 
 import os
 import sys
+import warnings
 
 sys.path.insert( 0, os.path.join(
 	os.path.dirname(os.path.realpath(__file__)),
@@ -9,6 +10,8 @@ sys.path.insert( 0, os.path.join(
 	))
 
 import GenomeCommons.VariantAnalyzer
+from GenomeCommons.Exceptions import *
+
 
 variants = (
 	'AB026906.1:g.7872G>T'
@@ -22,10 +25,23 @@ variants = (
 	'AJ574983.1:g.179G>A',
 	'AJ574995.1:g.216G>A',
 	'AJ575003.1:g.305G>T',
-	'AY848832.1:g.40725C>T'
+	'AY848832.1:g.40725C>T',
+
+	
+	'AY848832:g.40725C>T',				# expect unversioned ref seq warning
+
+	# from jt den dunnen slides:
+	'NM_012654.3:c.546A>T'
 	)
 
 for v in variants:
-	print '='*76
-	print '* ', v
-	GenomeCommons.VariantAnalyzer.VariantAnalyzer(v).print_summary()
+	print '='*76, '\n*', v
+	try:
+		GenomeCommons.VariantAnalyzer.VariantAnalyzer(v).print_summary()
+	except Exception as e:
+		if ( isinstance(e,GenomeCommons.Exceptions.Warning) ):
+			warnings.warn(e)
+			pass
+		else:
+			raise
+	

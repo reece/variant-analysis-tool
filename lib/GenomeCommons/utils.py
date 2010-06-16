@@ -26,10 +26,10 @@ def ac_to_gis(ac):
 def ac_to_gi(ac):
 	gis = ac_to_gis(ac)
 	if len(gis) == 0:
-		raise Error(
+		raise GCError(
 			'%s: no such nucleotide record' % (ac))
 	elif len(gis) > 1:
-		raise Error(
+		raise GCError(
 			'more than one record returned for term %s' % (ac))
 	return gis[0]
 

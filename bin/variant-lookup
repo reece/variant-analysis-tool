@@ -4,6 +4,7 @@ import os
 import sys
 import warnings
 
+
 sys.path.insert( 0, os.path.join(
 	os.path.dirname(os.path.realpath(__file__)),
 	'..', 'lib'
@@ -31,17 +32,15 @@ variants = (
 	'AY848832:g.40725C>T',				# expect unversioned ref seq warning
 
 	# from jt den dunnen slides:
-	'NM_012654.3:c.546A>T'
+	'NM_012654.3:c.546A>T'				# this is a bogus reference sequence
 	)
 
 for v in variants:
 	print '='*76, '\n*', v
 	try:
 		GenomeCommons.VariantAnalyzer.VariantAnalyzer(v).print_summary()
-	except Exception as e:
-		if ( isinstance(e,GenomeCommons.Exceptions.Warning) ):
-			warnings.warn(e)
-			pass
-		else:
-			raise
-	
+	except (GCError,GCWarning) as e:
+		warnings.warn(str(e))
+		pass
+	except:
+		raise

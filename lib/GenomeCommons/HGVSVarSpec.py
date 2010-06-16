@@ -35,7 +35,7 @@ from Exceptions import *
 
 aa_re_t = '|'.join(Bio.Alphabet.ThreeLetterProtein.letters)
 
-class InvalidVariantSyntax(Error):
+class InvalidVariantSyntax(GCError):
 	def __init__(self): pass
 
 class HGVSVarSpec(object):
@@ -69,7 +69,7 @@ class HGVSVarSpec(object):
 
 	def validate(self):
 		if re.search('^(?:AC|AJ|AY|NM_|NP_)\d+$',self.accession):
-			raise Warning(
+			raise GCWarning(
 				'%s is an unversioned reference sequence'
 				% (self.accession))
 		return

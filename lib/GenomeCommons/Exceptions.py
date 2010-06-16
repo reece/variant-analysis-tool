@@ -1,3 +1,3 @@
-class Error(Exception): pass
+class GCError(Exception): pass
 
-class Warning(Warning): pass
+class GCWarning(Warning): pass

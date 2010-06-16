@@ -1,6 +1,7 @@
 import os
 import re
 import shelve
+import warnings
 
 import Bio.Entrez
 import Bio.SeqIO
@@ -17,10 +18,11 @@ Bio.Entrez.tool = __file__
 class VariantAnalyzer(object):
 	def __init__(self,vartxt):
 		self.vs = GenomeCommons.HGVSVarSpec.HGVSVarSpec(vartxt)
-		self.vs.validate()
 
 	def print_summary(self):
 		vs = self.vs
+		vs.validate()
+
 		print('%s = %s / %s / %s' % (vs, vs.accession, vs.type, vs.varlist))
 
 		gi = ac_to_gi(vs.accession)

@@ -49,6 +49,31 @@ def get_complete_cds(record):
 			return f.extract(record.seq)
 	return None
 
+def gidx_to_cidx(cdsf,pos):
+	"""
+	given a CDS parent feature (with collection of CDS subfeatures) and
+	index in the genomic reference, return a CDS index (0-based).
+	"""
+	if cdsf.type != 'CDS':
+		raise GCError('arg is not a CDS feature')
+	d = 0
+	for sf in cdsf.sub_features:
+		s = sf.location.start.position
+		e = sf.location.end.position
+		l = e - s
+		#print('d=%d [%d,%d] l=%d' % (d,s,e,l))
+		if pos < s:
+			# pos is less than the start of this exon => non-coding
+			return None
+		if pos <= e:
+			return d + pos-s
+		d += l
+	return None
+
+def cidx_to_pidx(cidx):
+	return int(cidx/3)
+
+
 
 #def gi_to_refseq_ac(gi):
 	

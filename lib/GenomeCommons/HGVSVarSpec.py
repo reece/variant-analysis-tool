@@ -2,18 +2,8 @@
 # 2010-04-19 19:17 Reece Hart <reece@harts.net>
 
 # This code current supports only a subset of the HGVS syntax at
-# http://www.hgvs.org/mutnomen/.  It should aim for full implementation.
-
-# In addition, we should consider refactoring the code to support multiple
-# variant syntaxes (see below) and perhaps provide a superclass to enable
-# seamless specification and translation.
-# Variant standards and representations:
-# - http://www.hgvs.org/mutnomen/
-#   (with LRG support: http://www.lrg-sequence.org)
-# - http://www.emqn.org/emqn/Mutation-Nomenclature.html
-# - http://www.humgen.nl/mutalyzer/1.0.1/mutationcheck_help.html
-# - BIC:
-# - variant names (e.g., delta508, Factor V Leiden)
+# http://www.hgvs.org/mutnomen/.  It is far short of a full
+# implementation.
 
 # TODO
 # - more complete specification

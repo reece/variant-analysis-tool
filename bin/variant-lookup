@@ -14,26 +14,26 @@ import GenomeCommons.VariantAnalyzer
 from GenomeCommons.Exceptions import *
 
 
-variants = (
+variants = [
 	'AB026906.1:g.7872G>T'
-	'AB026906.1:c.274G>T'
-
-	# following are from
-	# http://jmd.amjpathol.org/cgi/content/full/9/1/1/T1
-	'AJ574942.1:g.240G>T',
-	'AJ574943.1:g.261G>T',
-	'AJ574980.1:g.116G>A',
-	'AJ574983.1:g.179G>A',
-	'AJ574995.1:g.216G>A',
-	'AJ575003.1:g.305G>T',
-	'AY848832.1:g.40725C>T',
-
-	
-	'AY848832:g.40725C>T',				# expect unversioned ref seq warning
-
-	# from jt den dunnen slides:
-	'NM_012654.3:c.546A>T'				# this is a bogus reference sequence
-	)
+#	'AB026906.1:c.274G>T'
+#
+#	# following are from
+#	# http://jmd.amjpathol.org/cgi/content/full/9/1/1/T1
+#	'AJ574942.1:g.240G>T',
+#	'AJ574943.1:g.261G>T',
+#	'AJ574980.1:g.116G>A',
+#	'AJ574983.1:g.179G>A',
+#	'AJ574995.1:g.216G>A',
+#	'AJ575003.1:g.305G>T',
+#	'AY848832.1:g.40725C>T',
+#
+#	
+#	'AY848832:g.40725C>T',				# expect unversioned ref seq warning
+#
+#	# from jt den dunnen slides:
+#	'NM_012654.3:c.546A>T'				# this is a bogus reference sequence
+	]
 
 for v in variants:
 	print '='*76, '\n*', v

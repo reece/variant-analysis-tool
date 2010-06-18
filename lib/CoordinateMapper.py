@@ -14,72 +14,83 @@
 # or 1-based numbering (0 internally, as with Python/BioPython and
 # Perl/BioPerl).
 # 
-# g   -----------00000000000-----1111111----------22222222222*222-----
-#                s0        e0    s1    e1         s2            e2
+# genomic  ------00000000000-----1111111----------22222222222*222-----
+#          0     s0        e0    s1    e1         s2            e2
 #                \         \     |     |          /             /
 #                 +--+      +--+ |     | +-------+     +-------+          
 #                     \         \|     |/             /
-# c                   00000000000111111122222222222*222
-#                               c0     c1             c2
-#                     aaabbbcccdddeeefffggghhhiiijj*kkk
-# p                     A  B  C  D  E  F  G  H  I  J  K
-#                       p0 p1 p2 ...                  pn
+# cds                 00000000000111111122222222222*222
+#                     0         c0     c1             c2
+# codons:             aaabbbcccdddeeefffggghhhiiijj*kkk
+# protein:              A  B  C  D  E  F  G  H  I  J  K
+#                       0  p1 p2 ...                  pn
 # 
-# 
+# N.B. coordinates above and in code are "Python counting" (i.e., 0 based,
+# right open interval).
+#
 # TODO:  
-# * g2c returns index + extended syntax
-# * c2g accepts index + extended syntax
+# * implement extended syntax for cds coords (see HGVS spec). Briefly,
+# these enable representions in non-coding regions, such as 5' UTR (eg,
+# -14), 3' UTR (*46), or introns (88+1 or 89-2).
+# * modify g2c and c2g to use the extended sytax
+# * use AbstractLocation & friends in lieu of integer locations, or at
+# least accept them for initialization?  Perhaps add specialized class for
+# extended syntax. Also consider __str__ implementation for ranges.
+# * consider making all conversions as list-to-list. This would allow
+# users to specify ranges or enumerations in any coordinate, and compute
+# the resulting range/enumeration in another.  Single positions become
+# degenerate cases of this structure.
 
 
 class CoordinateMapper(object):
-	def __init__(self,selist=None,seqrecord=None):
-		if seqrecord is not None:
-			self.exons = self.__extractCDSFromSeqRecord(seqrecord)
-		else:
-			self.exons = selist
+    def __init__(self,selist=None,seqrecord=None):
+        if seqrecord is not None:
+            self.exons = self.__extractCDSFromSeqRecord(seqrecord)
+        else:
+            self.exons = selist
 
-	def __extractCDSFromSeqRecord(self,sr):
-		cdsf = [ f for f in sr.features if f.type == 'CDS' ][0]
-		return [ (sf.location.start.position,sf.location.end.position)
-				 for sf in cdsf.sub_features ]
+    def __extractCDSFromSeqRecord(self,sr):
+        cdsf = [ f for f in sr.features if f.type == 'CDS' ][0]
+        return [ (sf.location.start.position,sf.location.end.position)
+                 for sf in cdsf.sub_features ]
 
-	def g2c(self,gpos):
-		d = 0
-		for s,e in self.exons:
-			l = e - s
-			if gpos < s:
-				return None
-			if gpos <= e:
-				return d + gpos - s
-			d += l
-		return None
+    def g2c(self,gpos):
+        d = 0
+        for s,e in self.exons:
+            l = e - s
+            if gpos < s:
+                return None
+            if gpos <= e:
+                return d+gpos-s
+            d += l
+        return None
 
-	def c2g(self,cpos):
-		d = 0
-		for s,e in self.exons:
-			l = e - s
-			if cpos < d+l:
-				return s + cpos - d
-			d += l
-		return None
+    def c2g(self,cpos):
+        d = 0
+        for s,e in self.exons:
+            l = e - s
+            if cpos < d+l:
+                return s+cpos-d
+            d += l
+        return None
 
-	def c2p(self,cpos):
-		return int(cpos/3)
+    def c2p(self,cpos):
+        return int(cpos/3)
 
-	def p2c(self,ppos):
-		return ppos*3,ppos*3+2
+    def p2c(self,ppos):
+        return ppos*3,ppos*3+2          # inclusive. use python counting?
 
 
 if __name__ == '__main__':
-	# The following exons are from AB026906.1.
-	# test case: g.7872 -> c.274 -> p.92
-	# N.B. These are python counting coordinates (0-based)
-	exons = [ (5808,5860), (6757,6874), (7767,7912), (13709,13785) ]
-	
-	cm = CoordinateMapper(exons)
-	for g1 in (7870,7871,7872,7873,7874):
-		c1 = cm.g2c(g1)
-		p1 = cm.c2p(c1)
-		c2 = cm.p2c(p1)[0]
-		g2 = cm.c2g(c2)
-		print g1,c1,p1,' | ',c2,g2
+    # The following exons are from AB026906.1.
+    # test case: g.7872 -> c.274 -> p.92
+    # From http://www.mutalyzer.nl/1.0.4/
+    exons = [ (5808,5860), (6757,6874), (7767,7912), (13709,13785) ]
+    cm = CoordinateMapper(exons)
+    for g1 in (7870,7871,7872,7873,7874):
+        c1 = cm.g2c(g1)
+        p1 = cm.c2p(c1)
+        c2 = cm.p2c(p1)
+        g2 = cm.c2g(c2[0])
+        print('g.%d -> c.%d -> p.%d -> c.%s -> g.%s'
+              % (g1+1,c1+1,p1+1,c2,g2+1))

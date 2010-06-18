@@ -7,12 +7,12 @@
 # AB026906.1:c.274G>T
 # BA...:p.Asp92Tyr
 # 
-# All refer to congruent variants. A coordinate mapper is needed to
-# translate between at least these three coordinate frames.  The mapper
-# should deal with specialized syntax for splicing and UTR (e.g., 88+1,
-# 89-2, -14, *46). In addition, care should be taken to ensure consistent 0-
-# or 1-based numbering (0 internally, as with Python/BioPython and
-# Perl/BioPerl).
+# Each refers to congruent variants in different sequence types and
+# coordinates. A coordinate mapper is needed to translate between at least
+# these three coordinate frames.  The mapper should deal with specialized
+# syntax for splicing and UTR (e.g., 88+1, 89-2, -14, *46). In addition,
+# care should be taken to ensure consistent 0- or 1-based numbering (0
+# internally, as with Python/BioPython and Perl/BioPerl).
 # 
 # genomic  ------00000000000-----1111111----------22222222222*222-----
 #          0     s0        e0    s1    e1         s2            e2
@@ -87,7 +87,9 @@ if __name__ == '__main__':
     # From http://www.mutalyzer.nl/1.0.4/
     exons = [ (5808,5860), (6757,6874), (7767,7912), (13709,13785) ]
     cm = CoordinateMapper(exons)
-    for g1 in (7870,7871,7872,7873,7874):
+    for g1 in (-14, 10,
+			   7870,7871,7872,7873,7874,
+			   15000):
         c1 = cm.g2c(g1)
         p1 = cm.c2p(c1)
         c2 = cm.p2c(p1)

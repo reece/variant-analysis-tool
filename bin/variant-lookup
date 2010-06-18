@@ -15,8 +15,8 @@ from GenomeCommons.Exceptions import *
 
 
 variants = [
-	'AB026906.1:g.7872G>T'
-#	'AB026906.1:c.274G>T'
+	'AB026906.1:g.7872G>T',
+	'AB026906.1:c.274G>T'
 #
 #	# following are from
 #	# http://jmd.amjpathol.org/cgi/content/full/9/1/1/T1

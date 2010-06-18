@@ -1,0 +1,42 @@
+Examples:
+AB026906.1:g.7872G>T
+AB026906.1:c.274G>T
+BA...:p.Asp92Tyr
+
+All refer to congruent variants. A coordinate mapper is needed to
+translate between at least these three coordinate frames.  The mapper
+should deal with specialized syntax for splicing and UTR (e.g., 88+1,
+89-2, -14, *46). In addition, care should be taken to ensure consistent 0-
+or 1-based numbering (0 internally, as with Python/BioPython and
+Perl/BioPerl).
+
+
+g   -----------00000000000-----1111111----------222222222222222-----
+               s0        e0    s1    e1         s2            e2
+               \         \     |     |          /             /
+                +--+      +--+ |     | +-------+     +-------+          
+                    \         \|     |/             /
+c                   000000000001111111222222222222222
+                              c0     c1             c2
+                    aaabbbcccdddeeefffggghhhiiijjjkkk
+p                     A  B  C  D  E  F  G  H  I  J  K
+                      p0                            pn
+
+
+
+Possible implementations:
+
+Bio.CoordinateMapper
+init with set of exons (si,ei)
+from this, compute ci
+from this, compute pi
+(lengths of <si,ei>, c, p are equal)
+
+Methods:
+.g2c(g) -> c
+.c2g(c) -> g
+.c2p(c) -> p
+.p2c(p) -> c (range? first na? last na? spans exons!)
+
+g2c returns index + extended syntax
+c2g accepts index + extended syntax

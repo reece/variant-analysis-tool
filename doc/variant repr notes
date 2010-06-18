@@ -1,0 +1,42 @@
+variant representation/parser
+
+Computational and human representations of genomic variants are critical
+for conveying and reasoning upon genomic observations.  The existence of
+several such specifications confound comparisons between groups.  Our goal
+is to develop a Python module that translates between such variants.
+
+
+
+
+In addition, we should consider refactoring the code to support multiple
+variant syntaxes (see below) and perhaps provide a superclass to enable
+seamless specification and translation.
+Variant standards and representations:
+- http://www.hgvs.org/mutnomen/
+  (with LRG support: http://www.lrg-sequence.org)
+- http://www.emqn.org/emqn/Mutation-Nomenclature.html
+- http://www.humgen.nl/mutalyzer/1.0.1/mutationcheck_help.html
+- BIC: (requires membership)
+- variant names (e.g., delta508, Factor V Leiden)
+- dbsnp names
+- cosmic names
+
+
+
+
+Specific ideas:
+- use SeqFeature to represent variant
+esp location classes
+
+
+
+pseudo-grammar:
+<type> = [cgmr]
+<spos> = 14, 88+1, 89-2, -14, *46
+<posr> = <spos>_<spos>
+subst
+del
+dup
+delins
+inv
+

@@ -1,0 +1,36 @@
+Use Cases:
+- Clinical geneticist or genetic counselor uses web-browser to investigate
+  a variant identified by resequencing.
+- Diagnostic lab provides links directly to variants for collated
+  information.
+- Bioinformatics support staff would like summary information on the
+  command line in XML format.
+- Scientific developer needs selected data associated with a specified
+  variant.
+
+
+
+Eventual output goals:
+* Gene Information: Accession, locus, 
+g.xx <-> c.xx -> r.xx -> p.xx
+* Genomic Data: miRNA, TF binding, CpG, methylation, ChIP data, CNV, etc.
+* Variant Information: dbSNP, COSMIC, LSDB info
+* Protein: Isoforms, Features, Structure, SIFT, PolyPhen
+* Evolution: nucleotide and amino acid homology (orthology+paralogy)
+* Pathway, Function, Disease: OMIM, KEGG disease, GO, ICD-9/10, SnoMed
+* Literature and Links: GeneReviews, PubMed, GeneRIF, x-refs/linkout, Trials
+* Microarray data: ArrayExpress, GEO, NextBio
+* Disease/Gene Expert links?
+
+These data will be aggregated from numerous sources by the Python
+modules. Within Python, the data will be available as Python dictionaries
+or objects. XML and PDF views will become available eventually via HTTP
+requests.
+
+
+Additional features:
+* subscribe (RSS and/or email) to gene and variants
+* XML and PDF formatting
+
+
+

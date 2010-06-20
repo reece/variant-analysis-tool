@@ -40,7 +40,7 @@
 # users to specify ranges or enumerations in any coordinate, and compute
 # the resulting range/enumeration in another.  Single positions become
 # degenerate cases of this structure.
-
+# * need lots of error handling for bogus coords (e.g., cpos outside cds)
 
 class CoordinateMapper(object):
     def __init__(self,selist=None,seqrecord=None):
@@ -87,12 +87,10 @@ if __name__ == '__main__':
     # From http://www.mutalyzer.nl/1.0.4/
     exons = [ (5808,5860), (6757,6874), (7767,7912), (13709,13785) ]
     cm = CoordinateMapper(exons)
-    for g1 in (-14, 10,
-			   7870,7871,7872,7873,7874,
-			   15000):
+    for g1 in (7870,7871,7872,7873,7874):
         c1 = cm.g2c(g1)
         p1 = cm.c2p(c1)
         c2 = cm.p2c(p1)
         g2 = cm.c2g(c2[0])
-        print('g.%d -> c.%d -> p.%d -> c.%s -> g.%s'
+        print('g.%s -> c.%s -> p.%s -> c.%s -> g.%s'
               % (g1+1,c1+1,p1+1,c2,g2+1))

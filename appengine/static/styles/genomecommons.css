@@ -73,7 +73,9 @@ fieldset legend {
 }
 
 
-
+/*
+  summary table
+*/
 table.summary {
 	width: 100%;
 	border: none; /* thin solid gray; */
@@ -82,12 +84,17 @@ table.summary {
 	padding: 0px;
 }
 table.summary th, table.summary td {
-	padding: 2px 3px 4px 3px;
 }
 table.summary th {
-	background: lightgray;
-	text-align: right;
 	width: 10%;
+	text-align: right;
+	vertical-align: top;
+	border-right: 2px solid #060;
+}
+table.summary th span {
+	background: #dfd;
+	display: block;
+	width: 100%;
 }
 table.summary td {
 	text-align: left;
@@ -139,5 +146,3 @@ div.tab {
 	padding: 0px;
 	margin: 0px;
 }
-
-

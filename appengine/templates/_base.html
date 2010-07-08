@@ -4,10 +4,8 @@
 
  <head>
    <title>Genome Commons &gt; {{ pagetitle }}</title>
-   <link href="/static/styles/genomecommons.css" rel="stylesheet"
-         type="text/css" />
-
-   <link type="text/css" href="/static/styles/roughness/jquery-ui-1.8.2.custom.css" rel="Stylesheet" />
+   <link type="text/css" href="/static/styles/genomecommons.css" rel="Stylesheet" />
+   <link type="text/css" href="/static/styles/genomecommons-jquery-ui/jquery-ui-1.8.2.custom.css" rel="Stylesheet" />
    <script type="text/javascript" src="/static/jquery/js/jquery-1.4.2.min.js"></script>
    <script type="text/javascript" src="/static/jquery/js/jquery-ui-1.8.2.custom.min.js"></script>
  </head>
@@ -16,10 +14,12 @@
  <body>
 
    <div id="header">
+	 <!--
 	 <div id="login">
 	   Welcome, Reece.
 	   <br><a href="#">logout</a> | <a href="#">profile</a>
 	 </div>
+	 -->
 	 <h1>Genome Commons &gt; {{ pagetitle }}</h1>
 	 <span class="about">{% block about %}(about){% endblock about %}</span>
    </div>
@@ -35,7 +35,7 @@
    </div>
 
    <div id="footer">
-	 <!-- query path: {{ path }} -->
+	 Questions? Comments? Bugs? Email <a href="mailto:reece@berkeley.edu?subject=Variant Analysis Tool&body=Hi-%0A%0AI've got a question about the Variant Analysis Tool{% if varspec %} and variant {{varspec}}{% endif %}:%0A">Reece Hart</a>
    </div>
 
  </body>

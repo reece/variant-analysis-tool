@@ -17,7 +17,7 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 -->
 
 
-<form method="post">
+<form method="get">
   Sequence variant: <input type="text" name="varspec" size=30 {% if varspec %}value="{{varspec}}"{% endif %}/>
   <input type="submit"/>
   <br><div class="inputcomment">
@@ -43,23 +43,23 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 
 <div id="tabs">
   <ul>
-	<li><a href="#summary-tab"      >summary</a></li>
-	<li><a href="ajax/gene"         >gene</a></li>
-	<li><a href="ajax/protein.html"	>protein</a></li>
-	<li><a href="ajax/variants"     >variants</a></li>
-	<li><a href="ajax/literature"   >literature</a></li>
-	<li><a href="ajax/links"   	    >links</a></li>
-	<li><a href="ajax/report"       >report</a></li>
-
-	<li>|
-	<li><a href="ajax/frame.html"	>reece</a></li>
-	<li><a href="http://harts.net/reece">remote</a></li>
-	<li><a href="ajax/error.html"	>error</a></li>
+	<li><a href="#summary-tab"                        >summary</a></li>
+	<li><a href="ajax/gene?varspec={{varspec}}"       >gene</a></li>
+	<li><a href="ajax/protein?varspec={{varspec}}"	  >protein</a></li>
+	<li><a href="ajax/variants?varspec={{varspec}}"   >variants</a></li>
+	<li><a href="ajax/literature?varspec={{varspec}}" >literature</a></li>
+	<li><a href="ajax/links?varspec={{varspec}}"      >links</a></li>
+	<li><a href="ajax/report?varspec={{varspec}}"     >report</a></li>
   </ul>
   <div id="summary-tab" class="tab">
 	<table class="summary">
-	  <tr><th>gene</th><td>info</td></tr>
-	  <tr><th>gi</th><td>gi</td></tr>
+	  <tr><th><span>gene</span></th><td>info info info info info info info
+	  info info info info info info info info info info info info info
+	  info info info info info info info info info info info info info
+	  info info info info info info info info info info info info info
+	  info info info info info info info </td></tr>
+
+	  <tr><th><span>gi</span></th><td>gi</td></tr>
 	</table>
   </div>
 </div>

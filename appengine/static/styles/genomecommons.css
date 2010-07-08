@@ -72,33 +72,20 @@ fieldset legend {
 	font-size: smaller;
 }
 
-table.query, table.results {
-	border: none;
-	width: 100%;
-	border-collapse: collapse;
-}
-table.query td,table.query tr {
-	vertical-align: top;
-	padding: 5px;
-}
-
-table.results tr td {
-	border: thin solid #060;
-	padding: 2px;
-}
-table.results tr>td:first-child {
-	background: #dfd;
-	text-align: right;
-}
 
 
 table.summary {
 	width: 100%;
 	border: none; /* thin solid gray; */
 	font-size: smaller;
+	margin: 0px;
+	padding: 0px;
+}
+table.summary th, table.summary td {
+	padding: 2px 3px 4px 3px;
 }
 table.summary th {
-	color: gray;
+	background: lightgray;
 	text-align: right;
 	width: 10%;
 }
@@ -147,10 +134,10 @@ ul.tab li.selected {
 ul.tab li.loading {
 }
 
-div.content {
-	border: thin solid #060;
-	height: 300px;
+div.tab {
 	width: 100%;
+	padding: 0px;
+	margin: 0px;
 }
 
 

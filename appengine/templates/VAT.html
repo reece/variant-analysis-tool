@@ -25,35 +25,46 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</div>
 </form>
 
-{% if gi %}
+{% if varspec %}
   <hr>
 
-  <script updateTab(i,u) {e
-$.ajax({url: u,
-		cache: false,
-		success: function(c) { $("#content"+i).html(c); }
-		})
-  </script>		  
+  <script type="text/javascript">
+	$(function() {
+		$("#tabs").tabs({
+			spinner: 'Retrieving data...', 
+			ajaxOptions: {
+				error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("An error occured loading this tab. Sorry.");
+				}
+			}
+		});
+	});
+  </script>
 
-  <ul class="tab">
-	<li name="tab_gene"    class="selected">gene</li>
-	<li name="tab_protein"	>protein</li>
-	<li name="tab_variants" >variants</li>
-	<li name="tab_homology"	>homology</li>
-	<li name="tab_networks"	>networks</li>
-	<li name="tab_expression" >expression</li>
-	<li name="tab_lit"    	>literature</li>
-	<li name="tab_links"   	>links</li>
-	<li name="tab_reports"  >reports</li>
+<div id="tabs">
+  <ul>
+	<li><a href="#summary-tab"      >summary</a></li>
+	<li><a href="ajax/gene"         >gene</a></li>
+	<li><a href="ajax/protein.html"	>protein</a></li>
+	<li><a href="ajax/variants"     >variants</a></li>
+	<li><a href="ajax/literature"   >literature</a></li>
+	<li><a href="ajax/links"   	    >links</a></li>
+	<li><a href="ajax/report"       >report</a></li>
+
+	<li>|
+	<li><a href="ajax/frame.html"	>reece</a></li>
+	<li><a href="http://harts.net/reece">remote</a></li>
+	<li><a href="ajax/error.html"	>error</a></li>
   </ul>
-
-  <div class="content" name="content1">
-	<table class='summary'>
-	  <tr>	<th>Variant:</th>     <td>{{vs}}</td> </tr>
-	  <tr>  <th>Accession:</th>   <td>{{vs.accession}} (gi: {{gi}})</td>    </tr>
-	  <tr>  <th>Description:</th> <td>{{description}}</td>    </tr>
+  <div id="summary-tab" class="tab">
+	<table class="summary">
+	  <tr><th>gene</th><td>info</td></tr>
+	  <tr><th>gi</th><td>gi</td></tr>
 	</table>
   </div>
+</div>
+
+
 
 {% endif %}
 

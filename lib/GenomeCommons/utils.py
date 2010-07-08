@@ -10,7 +10,7 @@ import Bio.Entrez
 import Bio.SeqIO
 from GenomeCommons.Exceptions import *
 
-from memoize import memoize
+from memoize_gae import memoize
 
 Bio.Entrez.email = 'reece@berkeley.edu'
 Bio.Entrez.tool = __file__

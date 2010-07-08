@@ -51,10 +51,11 @@ class CoordinateMapper(object):
 
     def __extractCDSFromSeqRecord(self,sr):
         cdsf = [ f for f in sr.features if f.type == 'CDS' ][0]
-        return [ (sf.location.start.position,sf.location.end.position)
+        return [ (sf.location.nofuzzy_start.position,
+				  sf.location.nofuzzy_end.position)
                  for sf in cdsf.sub_features ]
 
-    def g2c(self,gpos):
+    def genomeToCDS(self,gpos):
         d = 0
         for s,e in self.exons:
             l = e - s
@@ -65,7 +66,7 @@ class CoordinateMapper(object):
             d += l
         return None
 
-    def c2g(self,cpos):
+    def CDSToGenome(self,cpos):
         d = 0
         for s,e in self.exons:
             l = e - s
@@ -74,11 +75,12 @@ class CoordinateMapper(object):
             d += l
         return None
 
-    def c2p(self,cpos):
+    def CDSToProtein(self,cpos):
         return int(cpos/3)
 
-    def p2c(self,ppos):
+    def proteinToCDS(self,ppos):
         return ppos*3,ppos*3+2          # inclusive. use python counting?
+
 
 
 if __name__ == '__main__':
@@ -88,9 +90,9 @@ if __name__ == '__main__':
     exons = [ (5808,5860), (6757,6874), (7767,7912), (13709,13785) ]
     cm = CoordinateMapper(exons)
     for g1 in (7870,7871,7872,7873,7874):
-        c1 = cm.g2c(g1)
-        p1 = cm.c2p(c1)
-        c2 = cm.p2c(p1)
-        g2 = cm.c2g(c2[0])
+        c1 = cm.genomeToCDS(g1)
+        p1 = cm.CDSToProtein(c1)
+        c2 = cm.proteinToCDS(p1)
+        g2 = cm.CDSToGenome(c2[0])
         print('g.%s -> c.%s -> p.%s -> c.%s -> g.%s'
               % (g1+1,c1+1,p1+1,c2,g2+1))

@@ -36,6 +36,16 @@ hr {
 
 #footer {
 	margin-top: 5px;
+	vertical-align: middle;
+}
+
+#footer span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#footer img {
+	padding-left: 10px;
 }
 
 #login {

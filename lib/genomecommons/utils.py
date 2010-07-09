@@ -17,15 +17,16 @@ else:
 
 Bio.Entrez.email = 'reece@berkeley.edu'
 Bio.Entrez.tool = __file__
+os.linesep = '\n'
 
-@memoize
+#@memoize
 def ac_to_gis(ac):
 	h = Bio.Entrez.esearch(db='nucleotide',term=ac)
 	r = Bio.Entrez.read(h)
 	h.close()
 	return r['IdList']
 
-@memoize
+#@memoize
 def ac_to_gi(ac):
 	gis = ac_to_gis(ac)
 	if len(gis) == 0:
@@ -36,7 +37,7 @@ def ac_to_gi(ac):
 			'more than one record returned for term %s' % (ac))
 	return gis[0]
 
-@memoize
+#@memoize
 def gi_as_seqrecord(gi):
 	h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
 	return Bio.SeqIO.parse(h,'genbank').next()

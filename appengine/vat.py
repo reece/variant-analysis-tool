@@ -1,4 +1,5 @@
-import os,sys
+import os
+import sys
 import logging
 
 import wsgiref.handlers
@@ -8,7 +9,7 @@ from google.appengine.ext.webapp import template
 sys.path.insert( 0, os.path.join(
 	os.path.dirname(os.path.realpath(__file__)), 'lib' ))
 
-import genomecommons.variantanalyzer
+from genomecommons.variantanalyzer import VariantAnalyzer
 
 class VAT(webapp.RequestHandler):
 	def get(self):
@@ -20,15 +21,19 @@ class VAT(webapp.RequestHandler):
 	def _render(self):
 		pv = { 'pagetitle': 'Variant Analysis Tool',
 			   'path': self.request.path,
-			   'sys': sys,
+			   'sys': sys
 			   }
 
 		vs =  self.request.get('varspec')
 		if vs is not None and vs != '':
-			pv['varspec'] = vs
 			pv['pagetitle'] = pv['pagetitle'] + ' - ' + vs
-			va = genomecommons.variantanalyzer.VariantAnalyzer(vs)
+			pv.update( VariantAnalyzer(vs).summary() )
 
 		tmpl = os.path.join( os.path.dirname(__file__),
-							 'templates/vat.html' )
+							 'templates',
+							 'vat.html' )
 		return template.render( tmpl, pv )
+
+
+	def _env(self):
+		return map(lambda k: '<br>%s=%s\n' % (k,os.environ[k]), sorted(os.environ.keys()))

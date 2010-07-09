@@ -127,32 +127,7 @@ pre.monospace {
 
 
 
-ul.tab {
-	color: #060;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    vertical-align: middle;
-}
-ul.tab li {
-	background: #dfd;
-	border: thin solid #060;
-	font-weight: bold;
-	margin: 0px 5px 2px 0px;
-    display: inline;
-    font-size: 14px;
-    padding: 1px 10px 1px 10px;
-}
-ul.tab li.selected {
-	background: #060;
-	color: white;
-}
-ul.tab li.loading {
-}
-
-div.tab {
+div.loading {
 	width: 100%;
-	padding: 0px;
-	margin: 0px;
+	text-align: center;
 }

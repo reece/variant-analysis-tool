@@ -8,7 +8,7 @@ from google.appengine.ext.webapp import template
 sys.path.insert( 0, os.path.join(
 	os.path.dirname(os.path.realpath(__file__)), 'lib' ))
 
-import GenomeCommons.VariantAnalyzer
+import genomecommons.variantanalyzer
 
 class VAT(webapp.RequestHandler):
 	def get(self):
@@ -27,8 +27,8 @@ class VAT(webapp.RequestHandler):
 		if vs is not None and vs != '':
 			pv['varspec'] = vs
 			pv['pagetitle'] = pv['pagetitle'] + ' - ' + vs
-			va = GenomeCommons.VariantAnalyzer.VariantAnalyzer(vs)
+			va = genomecommons.variantanalyzer.VariantAnalyzer(vs)
 
 		tmpl = os.path.join( os.path.dirname(__file__),
-							 'templates/VAT.html' )
+							 'templates/vat.html' )
 		return template.render( tmpl, pv )

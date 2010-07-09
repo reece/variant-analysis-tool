@@ -8,9 +8,12 @@ import string
 
 import Bio.Entrez
 import Bio.SeqIO
-from GenomeCommons.Exceptions import *
+from genomecommons.exceptions import *
 
-from memoize_gae import memoize
+if os.environ.has_key('SCRIPT_NAME'):
+	from memoize_gae import memoize
+else:
+	from memoize import memoize
 
 Bio.Entrez.email = 'reece@berkeley.edu'
 Bio.Entrez.tool = __file__

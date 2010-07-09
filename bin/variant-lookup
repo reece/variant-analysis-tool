@@ -10,8 +10,8 @@ sys.path.insert( 0, os.path.join(
 	'..', 'lib'
 	))
 
-import GenomeCommons.VariantAnalyzer
-from GenomeCommons.Exceptions import *
+import genomecommons.variantanalyzer
+from genomecommons.exceptions import *
 
 
 variants = [
@@ -38,7 +38,7 @@ variants = [
 for v in variants:
 	print '='*76, '\n*', v
 	try:
-		GenomeCommons.VariantAnalyzer.VariantAnalyzer(v).print_summary()
+		genomecommons.variantanalyzer.VariantAnalyzer(v).print_summary()
 	except (GCError,GCWarning) as e:
 		warnings.warn(str(e))
 		pass

@@ -14,9 +14,9 @@ Perhaps as a superclass with children for specific specs?
 
 
 from vs:
-c/g -> gi
+c/g -> nuc gi
 
-c/g gi -> coords
+nuc gi -> coords
   	   -> rel snps
 	   -> p gi
 

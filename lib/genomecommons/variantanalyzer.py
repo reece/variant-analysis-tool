@@ -6,10 +6,10 @@ import warnings
 import Bio.Entrez
 import Bio.SeqIO
 
-import GenomeCommons.HGVSVarSpec
-from GenomeCommons.utils import *
+import genomecommons.hgvsvarspec
+from genomecommons.utils import *
 
-from CoordinateMapper import CoordinateMapper
+from coordinatemapper import CoordinateMapper
 
 
 Bio.Entrez.email = 'reece@berkeley.edu'
@@ -19,7 +19,7 @@ Bio.Entrez.tool = __file__
 
 class VariantAnalyzer(object):
 	def __init__(self,vartxt):
-		self.vs = GenomeCommons.HGVSVarSpec.HGVSVarSpec(vartxt)
+		self.vs = genomecommons.hgvsvarspec.HGVSVarSpec(vartxt)
 
 	def print_summary(self):
 		vs = self.vs
@@ -38,11 +38,11 @@ class VariantAnalyzer(object):
 		pos1 = int( re.search('^(\d+)',vs.varlist[0]).group(0) )
 		if vs.type == 'g':
 			gpos = pos1 - 1
-			cpos = cm.g2c(gpos)
+			cpos = cm.genome_to_cds(gpos)
 		elif vs.type == 'c':
 			cpos = pos1 - 1
-			gpos = cm.c2g(cpos)
-		ppos = cm.c2p(cpos)
+			gpos = cm.cds_to_genome(cpos)
+		ppos = cm.cds_to_protein(cpos)
 		print('%d -> %s -> %s' % (gpos+1,cpos+1,ppos+1))
 
 		#seq = r.seq

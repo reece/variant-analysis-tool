@@ -21,7 +21,7 @@ import exceptions
 
 import Bio.Alphabet
 
-from Exceptions import *
+from exceptions import *
 
 aa_re_t = '|'.join(Bio.Alphabet.ThreeLetterProtein.letters)
 

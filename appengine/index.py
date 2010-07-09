@@ -1,7 +1,7 @@
 import wsgiref.handlers
 from google.appengine.ext import webapp
 
-from VAT import VAT
+from vat import VAT
 
 
 def main():

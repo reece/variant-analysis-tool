@@ -1,4 +1,4 @@
-# GenomeCommons/VarSpec -- specification of a sequence variants
+# specification of a sequence variants
 # 2010-04-19 19:17 Reece Hart <reece@harts.net>
 
 # This code current supports only a subset of the HGVS syntax at
@@ -17,11 +17,9 @@
 #   - ins requires x_y
 
 import re
-import exceptions
+from exceptions import *
 
 import Bio.Alphabet
-
-from exceptions import *
 
 aa_re_t = '|'.join(Bio.Alphabet.ThreeLetterProtein.letters)
 
@@ -33,10 +31,11 @@ class HGVSVarSpec(object):
 	Bio.VarSpec.HGVSVarSpec -- specification of sequence variation
 	Implements the specification at http://www.hgvs.org/mutnomen/ .
 	IMPORTANT NOTES:
-	1) The HGVS spec has not yet been finalized. This code will lag
-	the specification. At the HVP 2010 meeting Johan den Dunnen was asked
+	1) The HGVS spec is a work-in-progress. This code will lag
+	the specification.
+	2) At the HVP 2010 meeting Johan den Dunnen was asked
 	to finalize the specification and submit it for ISO approval.
-	2) This code implements only a subset of the current specification.
+	#) This code implements only a subset of the current specification.
 	"""
 
 	def __init__(self,varspec):

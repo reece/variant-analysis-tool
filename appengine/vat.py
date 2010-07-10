@@ -21,7 +21,7 @@ class VAT(webapp.RequestHandler):
 	def _render(self):
 		pv = { 'pagetitle': 'Variant Analysis Tool',
 			   'path': self.request.path,
-			   'sys': sys
+			   'url': self.request.url
 			   }
 
 		vs =  self.request.get('varspec')

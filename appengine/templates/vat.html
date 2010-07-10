@@ -20,14 +20,12 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 <form method="get">
   Sequence variant: <input type="text" name="varspec" size=30 {% if varspec %}value="{{varspec}}"{% endif %}/>
   <input type="submit"/>
-  <br><div class="inputcomment">
+  <br><span class="inputcomment">
 	use <a href="http://www.hgvs.org/mutnomen/" target="_blank">HGVS nomenclature for the
-	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</div>
+	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</span>
 </form>
 
 {% if varspec %}
-  <hr>
-
   <script type="text/javascript">
 	$(function() {
 		$("#tabs").tabs({
@@ -48,6 +46,9 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 	});
   </script>
 
+  <hr>
+  Results for {{varspec}}
+  <p/>
 <div id="tabs">
   <ul>
 	<li><a href="#summary-tab"                        >summary</a></li>
@@ -60,10 +61,10 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
   </ul>
   <div id="summary-tab" class="tab">
 	<table class="summary">
-	  <tr><th><span>gene</span></th><td>{{gen.gene}}</td></tr>
-	  <tr><th><span>description</span></th><td>{{gen.description}}</td></tr>
-	  <tr><th><span>gi</span></th><td>{{gen.gi}}</td></tr>
-	  <tr><th><span>ac</span></th><td>{{vs.ac}}</td></tr>
+	  <tr><th>gene</th><td>{{gen.gene}}</td></tr>
+	  <tr><th>description</th><td>{{gen.description}}</td></tr>
+	  <tr><th>gi</th><td>{{gen.gi}}</td></tr>
+	  <tr><th>ac</th><td>{{varspec.accession}}</td></tr>
 	</table>
   </div>
 

@@ -39,13 +39,16 @@ hr {
 	vertical-align: middle;
 }
 
-#footer span {
-	display: inline-block;
+
+#footer div {
+	display: inline;
 	vertical-align: middle;
 }
 
 #footer img {
 	padding-left: 10px;
+	border: none;
+	vertical-align: middle;
 }
 
 #login {
@@ -56,17 +59,9 @@ hr {
 	float: right;
 }
 
-div.inputcomment {
-	margin: 0;
-	font-size: small;
-	font-style: italic;
-	color: #666;
-}
-
-.note {
-	color: #060;
-	font-size: small;
-	font-style: italic;
+div.loading {
+	width: 100%;
+	text-align: center;
 }
 
 fieldset {
@@ -88,7 +83,6 @@ fieldset legend {
 */
 table.summary {
 	width: 100%;
-	border: none; /* thin solid gray; */
 	font-size: smaller;
 	margin: 0px;
 	padding: 0px;
@@ -100,11 +94,8 @@ table.summary th {
 	text-align: right;
 	vertical-align: top;
 	border-right: 2px solid #060;
-}
-table.summary th span {
 	background: #dfd;
-	display: block;
-	width: 100%;
+	padding: 1px 0.5em 1px 1em;
 }
 table.summary td {
 	text-align: left;
@@ -113,6 +104,7 @@ table.summary td {
 
 
 div.error {
+
 	margin: 20px 50px 20px 50px;
 	border: thin solid red;
 	color: red;
@@ -126,8 +118,21 @@ pre.monospace {
 }
 
 
-
-div.loading {
-	width: 100%;
-	text-align: center;
+.float-right {					/* any */
+	float: right;
 }
+.float-left {					/* any */
+	float: left;
+}
+.note {							/* div */
+	color: #060;
+	font-size: small;
+	font-style: italic;
+}
+.inputcomment {					/* span */
+	margin: 0;
+	font-size: small;
+	font-style: italic;
+	color: #666;
+}
+

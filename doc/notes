@@ -13,21 +13,6 @@ VariantSpec should provide a way to translate among vs
 Perhaps as a superclass with children for specific specs?
 
 
-from vs:
-c/g -> nuc gi
-
-nuc gi -> coords
-  	   -> rel snps
-	   -> p gi
-
-p gi -> gene
-    -> browser
-  	-> AC
-  -> strx, features, go
-  -> homology
-  -> polyphen, SIFT, others
-
-        -> generif, pubs, OMIM, GO
 
 
 linkout
@@ -50,5 +35,4 @@ SNP						SNP ID			snp
 Taxonomy				TAXID			taxonomy
 UniGene					UniGene ID		unigene
 UniSTS					UniSTS ID		unists
-
 

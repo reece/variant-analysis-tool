@@ -9,7 +9,6 @@ Use Cases:
   variant.
 
 
-
 Eventual output goals:
 * Gene Information: Accession, locus, 
 g.xx <-> c.xx -> r.xx -> p.xx
@@ -34,3 +33,16 @@ Additional features:
 
 
 
+Implementation:
+* will be used in multiple environments (at least web and command line)
+Therefore, functionality should be encapsulated in a module 
+
+
+VariantAnalyzer(varspec)
+-> gene
+-> nuc_gi
+-> cds_gi
+-> pro_gi
+-> locus
+-> omim
+-> summary

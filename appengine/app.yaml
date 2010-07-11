@@ -1,4 +1,4 @@
-application: gc-variant-analysis-tool
+application: variant-analysis-tool
 version: 1
 runtime: python
 api_version: 1
@@ -10,8 +10,5 @@ handlers:
 - url: /env
   script: env.py
 
-- url: /
+- url: /.*
   script: index.py
-
-- url: /ajax/(.*)
-  script: ajax/\1.py

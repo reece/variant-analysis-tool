@@ -51,22 +51,38 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 
 <div id="tabs">
   <ul>
-	<li><a href="#summary-tab"                        >summary</a></li>
+	<li><a href="tab/summary?varspec={{varspec}}"    >summary</a></li>
 	<li><a href="ajax/gene?varspec={{varspec}}"       >gene</a></li>
 	<li><a href="ajax/protein?varspec={{varspec}}"	  >protein</a></li>
 	<li><a href="ajax/variants?varspec={{varspec}}"   >variants</a></li>
 	<li><a href="ajax/literature?varspec={{varspec}}" >literature</a></li>
 	<li><a href="ajax/links?varspec={{varspec}}"      >links</a></li>
 	<li><a href="ajax/report?varspec={{varspec}}"     >report</a></li>
+	<li style="float:right"><a href="#about-tab"      >about</a></li>
   </ul>
-  <div id="summary-tab" class="tab">
-	<table class="summary">
-	  <tr><th>variant</th><td>{{va.origvs}}</td></tr>
-	  <tr><th>gene</th><td>{{va.gene}}</td></tr>
-	  <tr><th>description</th><td>{{va.gene_description}}</td></tr>
-	  <tr><th>gi</th><td>{{va.gen_gi}}</td></tr>
-	  <tr><th>ac</th><td>{{va.gen_ac}}</td></tr>
-	</table>
+  <div id="about-tab" class="tab">
+	<b>The Variant Analysis Tool is a web portal for the analysis of
+	nucleotide and protein variants.</b> All data are retrieved on-the-fly
+	from NCBI using Entrez Utilities.  Therefore all data are current.
+
+	<p>Contact: Reece Hart</p>
+
+	<p>
+	  Thanks to:
+	  <ul>
+		<li>Colleen Brown, CGC; Peggy Conrad, CGC; and Robert Nussbaum, MD
+		for ideas and feedback</li>
+		<li>Steven Brenner and Jasper Rine for support</li>
+		<li>Celera (Celera Innovation Fellowship)</li>
+		<li>UC Berkeley Center for Computational Biology and QB3</li>
+		<li>NCBI for data and Entrez Utilities</li>
+	  </ul>
+	</p>
+	  
+	<p>The source code for the Variant Analysis Tool is available
+	at <a href="http://bitbucket.org/reece/variant-analysis-tool" target="_blank">
+	http://bitbucket.org/reece/variant-analysis-tool</a>.
+
   </div>
 
 </div>

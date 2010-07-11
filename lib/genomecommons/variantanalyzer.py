@@ -20,6 +20,34 @@ class VariantAnalyzer(object):
 		self.vs = {}
 		self.vs[self.origvs.type] = self.origvs	# type in {c,g,p}
 
+
+	@property
+	def gen_gi(self):
+		try:
+			return ac_to_gi(self.vs['g'].accession)
+		except KeyError:
+			return None
+		else:
+			pass
+
+	@property
+	def gen_id(self):
+		try:
+			return self.vs['g'].accession
+		except KeyError:
+			return None
+		else:
+			pass
+
+	@property
+	def gen_seqrecord(self):
+		try:
+			return self._gen_seqrecord
+		except AttributeError:
+			h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
+			self._gen_seqrecord = Bio.SeqIO.parse(h,'genbank').next()
+			return self._gen_seqrecord
+
 	@property
 	def gene(self):
 		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
@@ -45,31 +73,30 @@ class VariantAnalyzer(object):
 			return self._gene_record
 
 	@property
-	def gen_seqrecord(self):
-		try:
-			return self._gen_seqrecord
-		except AttributeError:
-			h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
-			self._gen_seqrecord = Bio.SeqIO.parse(h,'genbank').next()
-			return self._gen_seqrecord
+	def gene_summary(self):
+		return self.gene_record['Entrezgene_summary']
+	
+	@property
+	def gene_synonyms(self):
+		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_syn']
+
 
 	@property
-	def gen_gi(self):
-		try:
-			return ac_to_gi(self.vs['g'].accession)
-		except KeyError:
-			return None
-		else:
-			pass
+	def links(self):
+		assert(0)
+		# the following is one source of links
+		# finish this function when other sources are in hand
+		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_db']
 
 	@property
-	def gen_id(self):
-		try:
-			return self.vs['g'].accession
-		except KeyError:
-			return None
-		else:
-			pass
+	def locus(self):
+		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_maploc']
+
+	@property
+	def species(self):
+		r = self.gene_record['Entrezgene_source']['BioSource']['BioSource_org']['Org-ref']
+		return '%s (%s)' % (r['Org-ref_taxname'], r['Org-ref_common'])
+
 
 #		cm = CoordinateMapper(seqrecord=r)
 #
@@ -82,24 +109,4 @@ class VariantAnalyzer(object):
 #		ppos = cm.cds_to_protein(cpos)
 
 
-
-
-
-	@property
-	def g_varspec(self):
-		if not 'g' in self.vs:
-			self.vs['g'] = self.origvs
-		return self.vs['g']
-	
-	@property
-	def c_varspec(self):
-		if not 'c' in self.vs:
-			self.vs['c'] = self.origvs
-		return self.vs['c']
-
-	@property
-	def p_varspec(self):
-		if not 'p' in self.vs:
-			self.vs['p'] = self.origvs
-		return self.vs['p']
 

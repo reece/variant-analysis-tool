@@ -25,10 +25,11 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</span>
 </form>
 
-{% if varspec %}
-  <script type="text/javascript">
-	$(function() {
-		$("#tabs").tabs({
+<!-- begin results section -->
+{% if va %}
+<script type="text/javascript">
+  $(function() {
+  $("#tabs").tabs({
 			fx: { opacity: 'toggle' },
     		show: function(event, ui) {
 		        var tabID = "#ui-tabs-" + (ui.index + 1);
@@ -44,11 +45,10 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 			}
 		});
 	});
-  </script>
+</script>
 
-  <hr>
-  Results for {{varspec}}
-  <p/>
+<hr>
+
 <div id="tabs">
   <ul>
 	<li><a href="#summary-tab"                        >summary</a></li>
@@ -61,15 +61,17 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
   </ul>
   <div id="summary-tab" class="tab">
 	<table class="summary">
-	  <tr><th>gene</th><td>{{gen.gene}}</td></tr>
-	  <tr><th>description</th><td>{{gen.description}}</td></tr>
-	  <tr><th>gi</th><td>{{gen.gi}}</td></tr>
-	  <tr><th>ac</th><td>{{varspec.accession}}</td></tr>
+	  <tr><th>variant</th><td>{{va.origvs}}</td></tr>
+	  <tr><th>gene</th><td>{{va.gene}}</td></tr>
+	  <tr><th>description</th><td>{{va.gene_description}}</td></tr>
+	  <tr><th>gi</th><td>{{va.gen_gi}}</td></tr>
+	  <tr><th>ac</th><td>{{va.gen_ac}}</td></tr>
 	</table>
   </div>
 
 </div>
 
 {% endif %}
+<!-- end results section -->
 
 {% endblock bodycontent %}

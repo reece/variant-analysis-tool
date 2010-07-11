@@ -24,11 +24,11 @@ class VAT(webapp.RequestHandler):
 			   'url': self.request.url
 			   }
 
-		vs =  self.request.get('varspec')
-		if vs is not None and vs != '':
-			pv['pagetitle'] = pv['pagetitle'] + ' - ' + vs
-			pv.update( VariantAnalyzer(vs).summary() )
-
+		varspec = self.request.get('varspec')
+		if varspec is not None and varspec != '':
+			pv['varspec'] = varspec
+			pv['pagetitle'] = pv['pagetitle'] + ' - ' + varspec
+			pv['va'] = VariantAnalyzer(varspec)
 		tmpl = os.path.join( os.path.dirname(__file__),
 							 'templates',
 							 'vat.html' )

@@ -10,7 +10,7 @@ sys.path.insert( 0, os.path.join(
 	'..', 'lib'
 	))
 
-import genomecommons.variantanalyzer
+from genomecommons.variantanalyzer import VariantAnalyzer
 from genomecommons.exceptions import *
 
 
@@ -35,17 +35,18 @@ variants = [
 #	'NM_012654.3:c.546A>T'				# this is a bogus reference sequence
 	]
 
+
+
 for v in variants:
 	print '='*76, '\n*', v
 	try:
-		s = VariantAnalyzer(v).summary()
-		print(s)
-		print('%s = %s / %s / %s' % (s['vs'].varspec, s['vs'].accession, s['vs'].type, s['vs'].varlist))
-		print('id:%s, gi:%s' % (s['gen']['id'], s['gen']['gi']))
-		print('description:%s' % (s['gen']['description']))
-		#print('features:%d (%s)'
-		#	  % (len(r.features), ','.join([f.type for f in r.features])))
-		print('%d -> %s -> %s' % (s['gen']['pos']+1,s['cds']['pos']+1,s['pro']['pos']+1))
+		va = VariantAnalyzer(v)
+		print('parse: %s  =>  %s / %s / %s'
+			  % (va.origvs.varspec, va.origvs.accession,
+				 va.origvs.type, va.origvs.varlist))
+		print('id:%s, gi:%s' % (va.gen_id,va.gen_gi))
+		print('gene: %s (%s; %s)' % (va.gene, va.gene_id, va.gene_description))
+		#print('%d -> %s -> %s' % (s['gen']['pos']+1,s['cds']['pos']+1,s['pro']['pos']+1))
 
 		#seq = r.seq
 		#print vs.varlist[0], pos, seq[pos-1]

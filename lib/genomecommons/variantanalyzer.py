@@ -1,112 +1,105 @@
 import os
 import re
-import shelve
 import warnings
 
-import Bio.Entrez
-import Bio.SeqIO
+from Bio import Entrez
 
 from genomecommons.utils import *
 from genomecommons.hgvsvarspec import HGVSVarSpec
 from coordinatemapper import CoordinateMapper
 
+from pprint import pprint
+
 Bio.Entrez.email = 'reece@berkeley.edu'
 Bio.Entrez.tool = __file__
-#os.linesep = '\n'
-
-
-## Information flow:
-# Input: c., g., or p. varspec
-# 3 cases for determining correspondence of g, c, p variants:
-#   g->c,c->p
-#   c->g,c->p
-#   p->c,c->g
-# After which we have g<->c<->p correspondence
-# This mapping is ambiguous, an annoyance that has unknown 
-# impact here.
-# 
-# from g:
-# 
-# nuc gi -> coords
-#  	   -> rel snps
-# 	   -> p gi
-# 
-# p gi -> gene
-#     -> browser
-#   	-> AC
-#   -> strx, features, go
-#   -> homology
-#   -> polyphen, SIFT, others
-# 
-#         -> generif, pubs, OMIM, GO
-
+os.linesep = '\n'
 
 class VariantAnalyzer(object):
-	def __init__(self,vartxt):
-		self.vs = HGVSVarSpec(vartxt)
+	def __init__(self,varspec):
+		self.origvs = HGVSVarSpec(varspec)
+		self.vs = {}
+		self.vs[self.origvs.type] = self.origvs	# type in {c,g,p}
 
-	def gen_gi(self):
-		# works only for 
-		return ac_to_gi(self.vs.accession)
-		
-	def cds_gi(self):
-		assert(0)
-
-	def pro_gi(self):
-		assert(0)
-
+	@property
 	def gene(self):
-		assert(0)
+		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
 
-	def locus(self):
-		assert(0)
+	@property
+	def gene_description(self):
+		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_desc']
 
-	def XXX(self):
-		assert(0)
+	@property
+	def gene_id(self):
+		r = Entrez.read(Entrez.elink(
+			dbfrom='nucleotide',db='gene',id=self.gen_gi,retmode='xml'))
+		# TODO: is there ever more than one?
+		return r[0]['LinkSetDb'][0]['Link'][0]['Id']
 
-	def XXX(self):
-		assert(0)
+	@property
+	def gene_record(self):
+		try:
+			return self._gene_record
+		except AttributeError:
+			self._gene_record = Entrez.read(Entrez.efetch(
+				db='gene',id=self.gene_id,retmode='xml'))[0]
+			return self._gene_record
 
-	def XXX(self):
-		assert(0)
+	@property
+	def gen_seqrecord(self):
+		try:
+			return self._gen_seqrecord
+		except AttributeError:
+			h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
+			self._gen_seqrecord = Bio.SeqIO.parse(h,'genbank').next()
+			return self._gen_seqrecord
 
-	def XXX(self):
-		assert(0)
+	@property
+	def gen_gi(self):
+		try:
+			return ac_to_gi(self.vs['g'].accession)
+		except KeyError:
+			return None
+		else:
+			pass
 
-	def XXX(self):
-		assert(0)
+	@property
+	def gen_id(self):
+		try:
+			return self.vs['g'].accession
+		except KeyError:
+			return None
+		else:
+			pass
+
+#		cm = CoordinateMapper(seqrecord=r)
+#
+#		if self.vs.type == 'g':
+#			gpos = pos1 - 1
+#			cpos = cm.genome_to_cds(gpos)
+#		elif self.vs.type == 'c':
+#			cpos = pos1 - 1
+#			gpos = cm.cds_to_genome(cpos)
+#		ppos = cm.cds_to_protein(cpos)
 
 
-	#############################################################
-	## summary methods
-	def nuc_info(self):
-		assert(0)
-	def pro_info(self):
-		assert(0)
 
-	def summary(self):
-		gen_gi = self.gen_gi()
-		r = gi_as_seqrecord(gen_gi)
-		cm = CoordinateMapper(seqrecord=r)
 
-		pos1 = int( re.search('^(\d+)',self.vs.varlist[0]).group(0) )
-		if self.vs.type == 'g':
-			gpos = pos1 - 1
-			cpos = cm.genome_to_cds(gpos)
-		elif self.vs.type == 'c':
-			cpos = pos1 - 1
-			gpos = cm.cds_to_genome(cpos)
-		ppos = cm.cds_to_protein(cpos)
 
-		return {
-			'varspec': self.vs,
-			'gen': { 'gi': self.gen_gi(),
-					 'description': r.description,
-					 'id': r.id,
-					 'pos': gpos,
-				   },
-			'cds': { 'pos': cpos
-				   },
-			'pro': { 'pos': ppos
-				   }
-			}
+	@property
+	def g_varspec(self):
+		if not 'g' in self.vs:
+			self.vs['g'] = self.origvs
+		return self.vs['g']
+	
+	@property
+	def c_varspec(self):
+		if not 'c' in self.vs:
+			self.vs['c'] = self.origvs
+		return self.vs['c']
+
+	@property
+	def p_varspec(self):
+		if not 'p' in self.vs:
+			self.vs['p'] = self.origvs
+		return self.vs['p']
+

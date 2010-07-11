@@ -55,7 +55,7 @@ class HGVSVarSpec(object):
 
 	def __str__(self):
 		return self.varspec
-
+	
 	def validate(self):
 		if re.search('^(?:AC|AJ|AY|NM_|NP_)\d+$',self.accession):
 			raise GCWarning(

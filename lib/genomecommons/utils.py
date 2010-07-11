@@ -8,7 +8,6 @@ import string
 
 import Bio.Entrez
 import Bio.SeqIO
-from genomecommons.exceptions import *
 
 if os.environ.has_key('SCRIPT_NAME'):
 	from memoize_gae import memoize
@@ -37,11 +36,6 @@ def ac_to_gi(ac):
 			'more than one record returned for term %s' % (ac))
 	return gis[0]
 
-#@memoize
-def gi_as_seqrecord(gi):
-	h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
-	return Bio.SeqIO.parse(h,'genbank').next()
-
 
 def get_complete_cds(record):
 	"""
@@ -54,9 +48,7 @@ def get_complete_cds(record):
 	return None
 
 
-
 #def gi_to_refseq_ac(gi):
-	
 
 #def elink(dbfrom,db,id):
 #	r = Entrez.read(Entrez.elink(dbfrom=dbfrom,db=db,id=id))

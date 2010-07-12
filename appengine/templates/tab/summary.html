@@ -1,8 +1,40 @@
 <table class="summary">
-  <tr><th>variant</th><td>{{va.origvs}}</td></tr>
-  <tr><th>gene</th><td>{{va.gene}} (synonyms: {{va.gene_synonyms|join:","}})</td></tr>
-  <tr><th>description</th><td>{{va.gene_description}}</td></tr>
-  <tr><th>gi</th><td>{{va.gen_gi}}</td></tr>
-  <tr><th>ac</th><td>{{va.gen_id}}</td></tr>
-  <tr><th>species</th><td>{{va.species}}</td></tr>
+  <tr>
+	<th>variant</th>
+	<td>genomic: {{va.g_varspec}}
+	  <br>cds: {{va.c_varspec}}
+	  <br>protein: {{va.p_varspec}}
+	</td>
+  </tr>
+
+  <tr>
+	<th>gene</th>
+	<td>{{va.gene.name}} -- {{va.gene.description}} [<a href="{{va.gene.url}}">Entrez Gene</a>]
+	</td>
+  </tr>
+
+  <tr>
+	<th>summary</th>
+	<td>{{va.gene.summary}}
+	</td>
+  </tr>
+
+  <tr>
+	<th>species</th>
+	<td>{{va.gene.species}}
+	</td>
+  </tr>
+
+  <tr>
+	<th>synonyms</th>
+	<td>{{va.gene.synonyms|join:","}}
+	</td>
+  </tr>
+
+  <tr>
+	<th>NCBI Links</th>
+	<td><a href="{{va.nuc.url}}" target="blank">{{va.nuc_ac}} gi:{{va.nuc.id}}</a>
+	</td>
+  </tr>
+
 </table>

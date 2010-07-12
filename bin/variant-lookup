@@ -1,5 +1,7 @@
 #!/usr/bin/python -tt
 
+from __future__ import print_function
+
 import os
 import sys
 import warnings
@@ -38,22 +40,15 @@ variants = [
 
 
 for v in variants:
-	print '='*76, '\n*', v
-	try:
-		va = VariantAnalyzer(v)
-		print('parse: %s  =>  %s / %s / %s'
-			  % (va.origvs.varspec, va.origvs.accession,
-				 va.origvs.type, va.origvs.varlist))
-		print('id:%s, gi:%s' % (va.gen_id,va.gen_gi))
-		print('gene: %s (%s; %s)' % (va.gene, va.gene_id, va.gene_description))
-		#print('%d -> %s -> %s' % (s['gen']['pos']+1,s['cds']['pos']+1,s['pro']['pos']+1))
-
-		#seq = r.seq
-		#print vs.varlist[0], pos, seq[pos-1]
-		# TODO assert that subst na == seq[pos-1] 
-
-	except (GCError,GCWarning) as e:
-		warnings.warn(str(e))
-		pass
-	except:
-		raise
+	print('='*76, '\n*', v)
+	va = VariantAnalyzer(v)
+	print('parse: %s  =>  %s / %s / %s'
+		  % (va.origvs.varspec, va.origvs.accession,
+			 va.origvs.type, va.origvs.varlist))
+	print('id:%s, gi:%s' % (va.nuc_ac,va.nuc_gi))
+	print('gene: %s (%s; %s)' % (va.gene.name, va.gene.id, va.gene.description))
+	print('g:', str(va.g_varspec))
+	print('c:', str(va.c_varspec))
+	print('p:', str(va.p_varspec))
+	print('nuc url:', va.nuc.url)
+	print('gene url:', va.gene.url)

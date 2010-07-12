@@ -1,112 +1,123 @@
 import os
 import re
+import string
 import warnings
 
 from Bio import Entrez
 
-from genomecommons.utils import *
+import genomecommons.euhelpers as euhelpers
 from genomecommons.hgvsvarspec import HGVSVarSpec
-from coordinatemapper import CoordinateMapper
+from genomecommons.coordinatemapper import CoordinateMapper
+from genomecommons.entrez.gene import Gene
+from genomecommons.entrez.nucleotide import Nucleotide
 
-from pprint import pprint
 
-Bio.Entrez.email = 'reece@berkeley.edu'
-Bio.Entrez.tool = __file__
+Entrez.email = 'reece@berkeley.edu'
+Entrez.tool = __file__
 os.linesep = '\n'
+
 
 class VariantAnalyzer(object):
 	def __init__(self,varspec):
 		self.origvs = HGVSVarSpec(varspec)
-		self.vs = {}
+		self.vs = { 'c': None, 'g': None, 'p': None }
 		self.vs[self.origvs.type] = self.origvs	# type in {c,g,p}
-
-
-	@property
-	def gen_gi(self):
-		try:
-			return ac_to_gi(self.vs['g'].accession)
-		except KeyError:
-			return None
-		else:
-			pass
-
-	@property
-	def gen_id(self):
-		try:
-			return self.vs['g'].accession
-		except KeyError:
-			return None
-		else:
-			pass
-
-	@property
-	def gen_seqrecord(self):
-		try:
-			return self._gen_seqrecord
-		except AttributeError:
-			h = Bio.Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
-			self._gen_seqrecord = Bio.SeqIO.parse(h,'genbank').next()
-			return self._gen_seqrecord
+		self._derived_varspecs = 0
 
 	@property
 	def gene(self):
-		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
-
-	@property
-	def gene_description(self):
-		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_desc']
+		try:
+			return self._gene
+		except AttributeError:
+			self._gene = Gene(self.gene_id)
+			return self._gene
 
 	@property
 	def gene_id(self):
-		r = Entrez.read(Entrez.elink(
-			dbfrom='nucleotide',db='gene',id=self.gen_gi,retmode='xml'))
-		# TODO: is there ever more than one?
-		return r[0]['LinkSetDb'][0]['Link'][0]['Id']
+		return euhelpers.link_nuc_gi_to_gene_id(self.nuc_gi)
 
 	@property
-	def gene_record(self):
+	def nuc(self):
 		try:
-			return self._gene_record
+			return self._nuc
 		except AttributeError:
-			self._gene_record = Entrez.read(Entrez.efetch(
-				db='gene',id=self.gene_id,retmode='xml'))[0]
-			return self._gene_record
+			self._nuc = Nucleotide(self.nuc_gi)
+			return self._nuc
 
 	@property
-	def gene_summary(self):
-		return self.gene_record['Entrezgene_summary']
-	
-	@property
-	def gene_synonyms(self):
-		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_syn']
-
+	def nuc_ac(self):
+		if self.origvs.type in ('c','g'):
+			return self.origvs.accession
+		return None
 
 	@property
+	def nuc_gi(self):
+		return euhelpers.ac_to_nuc_gi(self.nuc_ac)
+
+
 	def links(self):
-		assert(0)
-		# the following is one source of links
-		# finish this function when other sources are in hand
-		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_db']
+		#http://www.ncbi.nlm.nih.gov/gene/6392
+		#http://www.ncbi.nlm.nih.gov/sites/varvu?gene=6392
+		#http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?locusId=6392
+		pass
 
 	@property
-	def locus(self):
-		return self.gene_record['Entrezgene_gene']['Gene-ref']['Gene-ref_maploc']
+	def g_varspec(self):
+		self.derive_varspecs()
+		return self.vs['g']
 
 	@property
-	def species(self):
-		r = self.gene_record['Entrezgene_source']['BioSource']['BioSource_org']['Org-ref']
-		return '%s (%s)' % (r['Org-ref_taxname'], r['Org-ref_common'])
+	def c_varspec(self):
+		self.derive_varspecs()
+		return self.vs['c']
+
+	@property
+	def p_varspec(self):
+		self.derive_varspecs()
+		return self.vs['p']
 
 
-#		cm = CoordinateMapper(seqrecord=r)
-#
-#		if self.vs.type == 'g':
-#			gpos = pos1 - 1
-#			cpos = cm.genome_to_cds(gpos)
-#		elif self.vs.type == 'c':
-#			cpos = pos1 - 1
-#			gpos = cm.cds_to_genome(cpos)
-#		ppos = cm.cds_to_protein(cpos)
+	def derive_varspecs(self):
+		if self._derived_varspecs != 0:
+			return
+		self._derived_varspecs = 1
+
+		ovs = self.origvs
+		m = re.match(r'(\d+)(\w>\w)',ovs.varlist[0])
+		if m is None:
+			raise SyntaxError
+		pos = int(m.group(1))
+		mut = m.group(2)
+
+		cm = CoordinateMapper(seqrecord=self.nuc.seqrecord)
+		if ovs.type == 'p':
+			# no attempt made to infer cds or genomic varspec
+			# c, g varspecs are undefined
+			return
+		elif ovs.type == 'g':
+			var0 = ovs.var_i(0)
+			vartxt = '%s:c.%s%s' % (ovs.accession,
+				cm.genome_to_cds(var0['pos']-1)+1, var0['mut'])
+			self.vs['c'] = HGVSVarSpec(vartxt)
+		elif ovs.type == 'c':
+			var0 = ovs.var_i(0)
+			print var0
+			vartxt = '%s:g.%s%s' % (ovs.accession,
+				cm.cds_to_genome(var0['pos']-1)+1, var0['mut'])
+			self.vs['g'] = HGVSVarSpec(vartxt)
+
+		var0 = self.vs['c'].var_i(0)
+		pro_ac = 'proid'
+		aa_wt = 'Aaa'
+		aa_var = 'Bbb'
+		vartxt = '%s:p.%s%s%s' % (pro_ac,
+					aa_wt, cm.cds_to_protein(var0['pos']-1)+1, aa_var)
+		self.vs['p'] = HGVSVarSpec(vartxt)
 
 
 
+if __name__ == '__main__':
+	vstext = 'AB026906.1:g.7872G>T'
+	va = VariantAnalyzer(vstext)
+	print 'nuc_ac:', va.nuc_ac
+	print 'nuc_gi:', va.nuc_gi

@@ -17,9 +17,10 @@
 #   - ins requires x_y
 
 import re
-from exceptions import *
 
 import Bio.Alphabet
+
+from genomecommons.exceptions import *
 
 aa_re_t = '|'.join(Bio.Alphabet.ThreeLetterProtein.letters)
 
@@ -56,9 +57,19 @@ class HGVSVarSpec(object):
 	def __str__(self):
 		return self.varspec
 	
+	def var_i(self,i=0):
+		m = re.match(r'(\d+)(\w>\w)',self.varlist[i])
+		return { 'pos': int(m.group(1)), 'mut': m.group(2) }
+
 	def validate(self):
 		if re.search('^(?:AC|AJ|AY|NM_|NP_)\d+$',self.accession):
 			raise GCWarning(
 				'%s is an unversioned reference sequence'
 				% (self.accession))
 		return
+
+
+if __name__ == '__main__':
+	vstext = 'AB026906.1:g.7872G>T'
+	vs = HGVSVarSpec(vstext)
+	print 'parse: %s => %s / %s / %s' % (vs, vs.accession, vs.type, vs.varlist)

@@ -84,7 +84,6 @@ fieldset legend {
 */
 table.summary {
 	width: 100%;
-	font-size: smaller;
 	margin: 0px;
 	padding: 0px;
 }
@@ -147,6 +146,14 @@ dl.omim-entries {
 dl.omim-entries dt {
 	font-weight: bold;
 	text-decoration: underline;
+}
+dl.omim-entry dt {
+	font-weight: normal;
+	text-decoration: underline;
+}
+dl.omim-references dt {
+	font-weight: normal;
+	text-decoration: none;
 }
 
 

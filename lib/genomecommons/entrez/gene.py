@@ -8,7 +8,7 @@ import genomecommons.euhelpers as euhelpers
 class Gene(object):
 	def __init__(self,gene_id):
 		self.id = gene_id
-		self.gene_dict = euhelpers.fetch_gene_records(self.id)[0]
+		self.gene_dict = euhelpers.fetch_gene_record(self.id)
 
 	@property
 	def description(self):
@@ -51,7 +51,7 @@ class Gene(object):
 if __name__ == '__main__':
 	from pprint import pprint
 
-	g = Gene(6392)
+	g = Gene('6392')
 	data = {
 		'desc': g.description,
 		'id': g.id,
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 		'url': g.url,
 		}
 	print '''\
-gene: %(name)s (%(id)d; %(maploc)s)  
+gene: %(name)s (%(id)s; %(maploc)s)  
 description %(desc)s
 species: %(species)s
 url: %(url)s

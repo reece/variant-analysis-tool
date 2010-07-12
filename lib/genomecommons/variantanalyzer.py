@@ -33,6 +33,11 @@ class VariantAnalyzer(object):
 			return self._gene
 
 	@property
+	def omims(self):
+		return euhelpers.fetch_omim_records(
+			euhelpers.link_gene_id_to_omim_ids(self.gene_id))
+
+	@property
 	def gene_id(self):
 		return euhelpers.link_nuc_gi_to_gene_id(self.nuc_gi)
 
@@ -117,7 +122,11 @@ class VariantAnalyzer(object):
 
 
 if __name__ == '__main__':
+	from pprint import pprint
+
 	vstext = 'AB026906.1:g.7872G>T'
 	va = VariantAnalyzer(vstext)
 	print 'nuc_ac:', va.nuc_ac
 	print 'nuc_gi:', va.nuc_gi
+	
+	pprint(va.omims)

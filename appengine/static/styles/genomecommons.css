@@ -137,3 +137,22 @@ pre.monospace {
 	color: #666;
 }
 
+
+li,dl,ul {
+	margin-top: 0;
+}
+
+dl.omim-entries {
+}
+dl.omim-entries dt {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+
+/* .xlink, a[href^="http://"]:after { */
+.xlink {
+	content: "\21D7"; 
+    /* background: url(/static/gfx/href-external.gif) center right no-repeat;
+    padding-right: 13px; */
+}

@@ -1,0 +1,38 @@
+SUMMARY
+<ul>
+{% for o in va.omims %}
+<li><a href="#{{o.mim_entry_mimnumber}}">{{o.mim_entry_title}} ({{o.mim_entry_mimnumber}})</a></li>
+{% endfor %}
+</ul>
+
+<dl class="omim-entries">
+{% for o in va.omims %}
+<dt><a name="{{o.mim_entry_mimnumber}}"></a>{{o.mim_entry_title}} ({{o.mim_entry_mimnumber}})</dt>
+<dd>
+  <dl>
+	{% for tf in o.mim_entry_textfields %}
+	<dt>{{tf.mim_text_label}}</dt>
+	<dd>{{tf.mim_text_text}}</dd>
+	{% endfor %}
+
+	<dt>REFERENCES</dt>
+	<dd>
+	  <dl>
+		{% for r in o.mim_entry_references %}
+		<dt>{{r.mim_reference_number}}. {{r.mim_reference_citationtitle}}</dt>
+		<dd>
+		  {{ r.mim_reference_journal }}, {{ r.mim_reference_volume }}:{{ r.mim_reference_pages.mim_page_from }} ({{r.mim_reference_pubdate.mim_date.mim_date_year}}) 
+		  [<a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ r.mim_reference_pubmeduid }}">PubMed</a>]
+		  <br>{% for a in r.mim_reference_authors %}
+		  {{a.mim_author_name}}; 
+		  {% endfor %}
+		</dd>
+		{% endfor %}
+	  </dl>
+	</dd>
+	
+  </dl>
+</dd>
+
+{% endfor %}
+</dl>

@@ -21,7 +21,7 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
   Sequence variant: <input type="text" name="varspec" size=30 {% if varspec %}value="{{varspec}}"{% endif %}/>
   <input type="submit"/>
   <br><span class="inputcomment">
-	use <a href="http://www.hgvs.org/mutnomen/" target="_blank">HGVS nomenclature for the
+	use <a class="xlink" href="http://www.hgvs.org/mutnomen/">HGVS nomenclature for the
 	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</span>
 </form>
 
@@ -55,8 +55,7 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 <div id="tabs">
   <ul>
 	<li><a href="tab/summary?varspec={{varspec}}"    >summary</a></li>
-	<li><a href="tab/gene?varspec={{varspec}}"       >gene</a></li>
-	<li><a href="tab/protein?varspec={{varspec}}"	  >protein</a></li>
+	<li><a href="tab/omim?varspec={{varspec}}"   	 >omim</a></li>
 	<li><a href="tab/variants?varspec={{varspec}}"   >variants</a></li>
 	<li><a href="tab/literature?varspec={{varspec}}" >literature</a></li>
 	<li><a href="tab/links?varspec={{varspec}}"      >links</a></li>
@@ -81,7 +80,7 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 	  </ul>
 	  
 	<p>The source code for the Variant Analysis Tool is available
-	at <a href="http://bitbucket.org/reece/variant-analysis-tool" target="_blank">
+	at <a href="http://bitbucket.org/reece/variant-analysis-tool">
 	http://bitbucket.org/reece/variant-analysis-tool</a>.
 
   </div>

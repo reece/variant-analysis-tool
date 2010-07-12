@@ -8,7 +8,7 @@ import genomecommons.euhelpers as euhelpers
 class Gene(object):
 	def __init__(self,gene_id):
 		self.id = gene_id
-		self.gene_dict = euhelpers.fetch_gene_id_as_dict(self.id)
+		self.gene_dict = euhelpers.fetch_gene_records(self.id)[0]
 
 	@property
 	def description(self):
@@ -39,7 +39,6 @@ class Gene(object):
 	def url(self):
 		return 'http://www.ncbi.nlm.nih.gov/gene/' + str(self.id)
 
-
 	@property
 	def links(self):
 		assert(0)
@@ -49,8 +48,9 @@ class Gene(object):
 
 
 
-
 if __name__ == '__main__':
+	from pprint import pprint
+
 	g = Gene(6392)
 	data = {
 		'desc': g.description,

@@ -158,7 +158,7 @@ dl.omim-references dt {
 
 
 /* .xlink, a[href^="http://"]:after { */
-.xlink {
+.xlink:after {
 	content: "\21D7"; 
     /* background: url(/static/gfx/href-external.gif) center right no-repeat;
     padding-right: 13px; */

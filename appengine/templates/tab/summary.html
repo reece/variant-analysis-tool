@@ -9,7 +9,7 @@
 
   <tr>
 	<th>gene</th>
-	<td>{{va.gene.name}} -- {{va.gene.description}} [<a href="{{va.gene.url}}">Entrez Gene</a>]
+	<td>{{va.gene.name}} -- {{va.gene.description}} [<a class="xlink" href="{{va.gene.url}}">Gene</a>]
 	</td>
   </tr>
 
@@ -33,7 +33,7 @@
 
   <tr>
 	<th>NCBI Links</th>
-	<td><a href="{{va.nuc.url}}" target="blank">{{va.nuc_ac}} gi:{{va.nuc.id}}</a>
+	<td><a class="xlink" href="{{va.nuc.url}}" target="blank">{{va.nuc_ac}} (gi:{{va.nuc.id}})</a>
 	</td>
   </tr>
 

@@ -7,7 +7,7 @@ SUMMARY
 
 <dl class="omim-entries">
 {% for o in va.omims %}
-<dt><a name="{{o.mim_entry_mimnumber}}"></a>{{o.mim_entry_title}} ({{o.mim_entry_mimnumber}})</dt>
+<dt><a name="{{o.mim_entry_mimnumber}}"></a>{{o.mim_entry_title}} ({{o.mim_entry_mimnumber}}) [<a class="xlink" href="http://www.ncbi.nlm.nih.gov/omim/{{o.mim_entry_mimnumber}}">OMIM</a>] </dt>
 <dd>
   <dl class="omim-entry">
 	{% for tf in o.mim_entry_textfields %}
@@ -19,7 +19,7 @@ SUMMARY
 	<dd>
 	  <dl class="omim-references">
 		{% for r in o.mim_entry_references %}
-		<dt>{{r.mim_reference_number}}. {{r.mim_reference_citationtitle}} [<a href="http://www.ncbi.nlm.nih.gov/pubmed/{{ r.mim_reference_pubmeduid }}">PubMed</a>]</dt>
+		<dt>{{r.mim_reference_number}}. {{r.mim_reference_citationtitle}} [<a class="xlink" href="http://www.ncbi.nlm.nih.gov/pubmed/{{ r.mim_reference_pubmeduid }}">PubMed</a>]</dt>
 		<dd>
 		  {{ r.mim_reference_journal }}, {{ r.mim_reference_volume }}:{{ r.mim_reference_pages.0.mim_page_from }}-{{ r.mim_reference_pages.0.mim_page_to }} ({{r.mim_reference_pubdate.mim_date.mim_date_year}}) 
 		  <br>{% for a in r.mim_reference_authors %}

@@ -21,23 +21,6 @@ Entrez.email = 'reece+%s@berkeley.edu' % rnd
 Entrez.tool = '__file__+%s' % rnd
 os.linesep = '\n'
 
-def ac_to_nuc_gi(ac):
-    gis = ac_to_nuc_gis(ac)
-    if len(gis) == 0:
-        raise GCError(
-            '%s: no such nucleotide record' % (ac))
-    elif len(gis) > 1:
-        raise GCError(
-            'more than one record returned for term %s' % (ac))
-    return gis[0]
-
-def ac_to_nuc_gis(ac):
-    h = Entrez.esearch(db='nucleotide',term=ac)
-    r = Entrez.read(h)
-    h.close()
-    return r['IdList']
-
-
 def fetch_nuc_gi_as_seqrecord(nuc_gi):
     h = Entrez.efetch(db='nucleotide',id=nuc_gi, rettype='gb')
     return SeqIO.parse(h,'genbank').next()
@@ -45,12 +28,14 @@ def fetch_nuc_gi_as_seqrecord(nuc_gi):
 def fetch_gene_record(id):
     return fetch_gene_records([id])[0]
 def fetch_gene_records(ids):
-    return Entrez.read(Entrez.efetch(db='gene',id=','.join(ids),retmode='xml'))
+    return map(_remap_dict_keys,
+		Entrez.read(Entrez.efetch(db='gene',id=','.join(ids),retmode='xml')))
 
 def fetch_pubmed_record(id):
 	return fetch_pubmed_records([id])[0]
 def fetch_pubmed_records(ids):
-    return Entrez.read(Entrez.efetch(db='pubmed',id=','.join(ids), retmode='xml'))
+    return map(_remap_dict_keys,
+		Entrez.read(Entrez.efetch(db='pubmed',id=','.join(ids), retmode='xml')))
 
 def fetch_omim_record(id):
     return fetch_omim_records([id])[0]
@@ -66,9 +51,14 @@ def fetch_snp_records(ids):
     # isn't supported by Entrez.read.  Use xml.elementtree instead.
     xml = Entrez.efetch(db='snp',id=','.join(ids), retmode='xml').read()
     d = XML(xml)
-    return map( _rs_elem_as_dict,
-                d.findall('{http://www.ncbi.nlm.nih.gov/SNP/docsum}Rs'))
+    return map(_remap_dict_keys, map( _rs_elem_as_dict,
+		d.findall('{http://www.ncbi.nlm.nih.gov/SNP/docsum}Rs')))
 
+
+def link_ac_to_nuc_gi(ac):
+    return link_ac_to_nuc_gis(ac)[0]
+def link_ac_to_nuc_gis(ac):
+    return Entrez.read(Entrez.esearch(db='nucleotide',term=ac))['IdList']
 
 def link_nuc_gi_to_gene_id(nuc_gi):
     return link_nuc_gi_to_gene_ids(nuc_gi)[0]
@@ -150,7 +140,7 @@ if __name__ == '__main__':
     ac = 'AB026906.1'
     print 'ac:', ac
 
-    nuc_gi = ac_to_nuc_gi(ac)
+    nuc_gi = link_ac_to_nuc_gi(ac)
     print 'nuc_gi:', nuc_gi
 
     gene_ids = link_nuc_gi_to_gene_ids(nuc_gi)

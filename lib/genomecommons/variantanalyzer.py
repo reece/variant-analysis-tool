@@ -57,7 +57,7 @@ class VariantAnalyzer(object):
 
 	@property
 	def nuc_gi(self):
-		return euhelpers.ac_to_nuc_gi(self.nuc_ac)
+		return euhelpers.link_ac_to_nuc_gi(self.nuc_ac)
 
 
 	def links(self):
@@ -128,5 +128,3 @@ if __name__ == '__main__':
 	va = VariantAnalyzer(vstext)
 	print 'nuc_ac:', va.nuc_ac
 	print 'nuc_gi:', va.nuc_gi
-	
-	pprint(va.omims)

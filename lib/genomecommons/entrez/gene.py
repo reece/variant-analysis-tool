@@ -12,28 +12,28 @@ class Gene(object):
 
 	@property
 	def description(self):
-		return self.gene_dict['Entrezgene_gene']['Gene-ref']['Gene-ref_desc']
+		return self.gene_dict['entrezgene_gene']['gene_ref']['gene_ref_desc']
 
 	@property
 	def name(self):
-		return self.gene_dict['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
+		return self.gene_dict['entrezgene_gene']['gene_ref']['gene_ref_locus']
 
 	@property
 	def maploc(self):
-		return self.gene_dict['Entrezgene_gene']['Gene-ref']['Gene-ref_maploc']
+		return self.gene_dict['entrezgene_gene']['gene_ref']['gene_ref_maploc']
 
 	@property
 	def species(self):
-		r = self.gene_dict['Entrezgene_source']['BioSource']['BioSource_org']['Org-ref']
-		return '%s (%s)' % (r['Org-ref_taxname'], r['Org-ref_common'])
+		r = self.gene_dict['entrezgene_source']['biosource']['biosource_org']['org_ref']
+		return '%s (%s)' % (r['org_ref_taxname'], r['org_ref_common'])
 
 	@property
 	def summary(self):
-		return string.replace(self.gene_dict['Entrezgene_summary'],
+		return string.replace(self.gene_dict['entrezgene_summary'],
 							  '[provided by RefSeq]', '')
 	@property
 	def synonyms(self):
-		return self.gene_dict['Entrezgene_gene']['Gene-ref']['Gene-ref_syn']
+		return self.gene_dict['entrezgene_gene']['gene_ref']['gene_ref_syn']
 
 	@property
 	def url(self):
@@ -44,7 +44,7 @@ class Gene(object):
 		assert(0)
 		# the following is one source of links
 		# finish this function when other sources are in hand
-		return self.gene_dict['Entrezgene_gene']['Gene-ref']['Gene-ref_db']
+		return self.gene_dict['entrezgene_gene']['gene_ref']['gene_ref_db']
 
 
 

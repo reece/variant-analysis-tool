@@ -31,16 +31,10 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
   $(function() {
   $("#tabs").tabs({
 			fx: { opacity: 'toggle' },
-  			// TODO: The intent of the following code is to show a spinner
-  			// while loading in the tab panel.  Unfortunately, the spinner is
-			// not removed reliably and obscures the content. Investigate.
-    		// show: function(event, ui) {
-		    //     var tabID = "#ui-tabs-" + (ui.index + 1);
-    		// 	$(tabID).html('<div class="loading"><img height=100 width=100 src="/static/gfx/loading.gif"/><p><b>Loading. Please wait...</b></p></div>');
-			// },
-			// load: function(event,ui) {
-			// 	$("div.loading").remove();
-			// },
+    		select: function(event, ui) {
+		        var tabID = "#ui-tabs-" + (ui.index + 1);
+    			$(tabID).html('<div class="loading"><img height=100 width=100 src="/static/gfx/loading.gif"/><p><b>Loading. Please wait...</b></p></div>');
+			},
 			ajaxOptions: {
 				error: function(xhr, status, index, anchor) {
 					$(anchor.hash).html("An error occured loading this tab. Sorry.");

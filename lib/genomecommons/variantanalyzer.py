@@ -38,6 +38,18 @@ class VariantAnalyzer(object):
 			euhelpers.link_gene_id_to_omim_ids(self.gene_id))
 
 	@property
+	def pubmeds(self):
+		return euhelpers.fetch_pubmed_records(
+			euhelpers.link_gene_id_to_pubmed_ids(self.gene_id))
+
+	@property
+	def variants(self):
+		return euhelpers.fetch_snp_records(
+			euhelpers.link_gene_id_to_snp_ids(self.gene_id))
+
+
+
+	@property
 	def gene_id(self):
 		return euhelpers.link_nuc_gi_to_gene_id(self.nuc_gi)
 
@@ -128,3 +140,5 @@ if __name__ == '__main__':
 	va = VariantAnalyzer(vstext)
 	print 'nuc_ac:', va.nuc_ac
 	print 'nuc_gi:', va.nuc_gi
+
+	pprint(va.pubmeds)

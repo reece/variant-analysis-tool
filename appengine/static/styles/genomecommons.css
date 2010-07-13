@@ -141,6 +141,7 @@ li,dl,ul {
 	margin-top: 0;
 }
 
+/* OMIM display */
 dl.omim-entries {
 }
 dl.omim-entries dt {
@@ -154,6 +155,24 @@ dl.omim-entry dt {
 dl.omim-references dt {
 	font-weight: normal;
 	text-decoration: none;
+}
+
+/* PubMed display */
+table.pubmed {
+	width: 100%;
+	border: thin solid;
+	border-collapse: collapse;
+}
+
+table.pubmed tr.odd {
+	background: #ccc;
+}
+table.pubmed tr.even {
+	background: #ddd;
+}
+table.pubmed tr:hover {
+	background: #eee;
+	border: thin solid #060;
 }
 
 

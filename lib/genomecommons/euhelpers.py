@@ -147,17 +147,17 @@ if __name__ == '__main__':
     gene_id = gene_ids[0]
     print '%d gene_ids: %s (using first)' % (len(gene_ids),','.join(gene_ids))
     
-    omims = link_gene_id_to_omim_ids(gene_id)
-    print '%d omims: %s' % (len(omims),','.join(omims))
-    recs = fetch_omim_records(omims)
-    print '%d omim recs received' % len(recs)
-    pprint(recs[0])
+#    omims = link_gene_id_to_omim_ids(gene_id)
+#    print '%d omims: %s' % (len(omims),','.join(omims))
+#    recs = fetch_omim_records(omims)
+#    print '%d omim recs received' % len(recs)
 
-#    pmids = link_gene_id_to_pubmed_ids(gene_id)
-#    print '%d pmids: %s' % (len(pmids),','.join(pmids))
-#    recs = fetch_pubmed_records(pmids)
-#    print '%d pubmed recs received' % len(recs)
-#
+    pmids = link_gene_id_to_pubmed_ids(gene_id)
+    print '%d pmids: %s' % (len(pmids),','.join(pmids))
+    recs = fetch_pubmed_records(pmids)
+    print '%d pubmed recs received' % len(recs)
+    pprint(recs)
+
 #    snpids = link_gene_id_to_snp_ids(gene_id)
 #    print '%d snpids: %s' % (len(snpids),','.join(snpids))
 #    recs = fetch_snp_records(snpids[:4])

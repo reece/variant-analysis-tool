@@ -1,0 +1,16 @@
+INSTALL NOTES
+2010-07-12 21:59 Reece Hart <reece@harts.net>
+
+Variant Analysis Tool requires:
+* Google App Engine (current: 1.3.5)
+* BioPython (current: 1.5.3)
+* Updated Entrez DTDs 
+
+Development is on Ubuntu 10.04 (Lucid Lynx). BioPython 1.5.3 is available
+in this distribution via 
+$ sudo apt-get install python-biopython
+$ sudo wget -n -P /usr/lib/pymodules/python2.6/Bio/Entrez/DTDs/  \
+  http://eutils.ncbi.nlm.nih.gov/entrez/query/DTD/{eLink_090910.dtd,pubmed_100301.dtd,nlmmedlinecitationset_100301.dtd,bookdoc_100301.dtd}
+$ .../google_appengine/dev_appserver.py .../variant-analysis-tool/appengine
+(where ... is the path determined by where you've installed stuff)
+

@@ -142,3 +142,9 @@ if __name__ == '__main__':
 	print 'nuc_gi:', va.nuc_gi
 
 	pprint(va.pubmeds)
+
+
+# snp urls:
+# http://www.ncbi.nlm.nih.gov/projects/SNP/SNPeutils.htm
+# http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=3000&report=Brief
+# 

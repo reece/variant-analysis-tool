@@ -6,7 +6,7 @@
 	<b>{{ c.medlinecitation.article.articletitle }}</b>
 	<br>{{ c.medlinecitation.article.journal.isoabbreviation }} 
 	{{ c.medlinecitation.article.journal.journalissue.volume }}({{ c.medlinecitation.article.journal.journalissue.issue }}):{{ c.medlinecitation.article.pagination.medlinepgn }}
-	({{ c.medlinecitation.article.journal.journalissue.pubdate.year }}) [<a class="xlink" href="http://www.ncbi.nlm.nih.gov/pubmed/{{c.medlinecitation.pmid}}">PubMed:{{c.medlinecitation.pmid}}</a>]
+	({{ c.medlinecitation.article.journal.journalissue.pubdate.year }}) [<span title="{{c.medlinecitation.article.abstract.abstracttext}}">Abstract</span>] [<a class="xlink" href="http://www.ncbi.nlm.nih.gov/pubmed/{{c.medlinecitation.pmid}}">PubMed:{{c.medlinecitation.pmid}}</a>]
 	<br>{% for a in c.medlinecitation.article.authorlist %}{{a.lastname}}&nbsp;{{a.forename}}, {% endfor %}
   </td>
 </tr>

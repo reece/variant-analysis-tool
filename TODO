@@ -2,15 +2,16 @@ TODO: 										-*-outline-*-
 
 * collect gene info
 * compute protein perturbation (if coding)
-* collect OMIM data
-* collect locus info
-* web: build tabbed structure with ajax loading
-* collect pubmed links
 * collect generif
 * link to gene tests/reviews
+ftp://ftp.ncbi.nih.gov/pub/GeneTests/
+http://www.ncbi.nlm.nih.gov/sites/GeneTests/lab/clinical_disease_id/2764?db=genetests
+ftp://ftp.ncbi.nih.gov/pub/GeneTests/README.html
 * link to linkouts (incl, Unison)
 * add support for protein HGVS spec
 * collect dbSNP variants
 * collect COSMIC variants
 * link to SIFT a/o PolyPhen
 * link to trials
+clinicaltrials.gov
+

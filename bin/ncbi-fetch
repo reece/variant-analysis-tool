@@ -1,0 +1,4 @@
+#!/bin/sh
+# fetch records from NCBI as xml
+url_base="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+exec curl "$url_base?retmode=xml&db=$1&id=$2"

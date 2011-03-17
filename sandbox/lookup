@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+import os
+from Bio import SeqIO
+from Bio import Entrez
+Entrez.email = 'reece@berkeley.edu'
+
+gi = 238018044
+handle = Entrez.efetch(db='nucleotide', id=gi, rettype='gb')
+r = SeqIO.parse(handle,'gb').next()
+print( 'gi: %i\nid: %s\nname: %s\ndescription: %s' % 
+       (gi,r.id, r.name, r.description) )
+
+handle.close()

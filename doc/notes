@@ -1,0 +1,38 @@
+SNP data
+http://www.ncbi.nlm.nih.gov/bookshelf/br.fcgi?book=helpsnpfaq&part=FTP.Eutils_Eutilities
+
+Q: How do I extract information from dbSNP by using eutils and specifying the
+chromosome position interval?
+A: Use the following eSearch query: "100000:200000[Base Position] AND
+"1"[CHR] AND txid9606". See example.
+
+You can also get the result using eFetch.(7/9/07)
+
+
+VariantSpec should provide a way to translate among vs
+Perhaps as a superclass with children for specific specs?
+
+
+
+
+linkout
+
+
+
+* Eutils
+Entrez Database			Primary ID		E-Utility Database Name
+3D Domains				3D SDI			domains
+Domains					PSSM-ID			cdd
+Genome					Genome ID		genome
+Nucleotide				GI number		nucleotide
+OMIM					MIM number		omim
+PopSet					Popset ID		popset
+Protein					GI number		protein
+ProbeSet				GEO ID			geo
+PubMed					PMID			pubmed
+Structure				MMDB ID			structure
+SNP						SNP ID			snp
+Taxonomy				TAXID			taxonomy
+UniGene					UniGene ID		unigene
+UniSTS					UniSTS ID		unists
+

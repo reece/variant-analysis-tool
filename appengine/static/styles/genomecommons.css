@@ -1,0 +1,184 @@
+body {
+    font-family: arial, san-serif;
+}
+
+hr {
+	color: #666;
+	background-color: #060;
+	height: 2px;
+	border: 0;
+}
+
+#header, #footer {
+    background-color: #dfd;
+    height: 100%;
+    overflow:hidden;
+    padding: 2px 7px 2px 7px;
+    border-top: thin solid #060;
+    border-bottom: thin solid #060;
+}
+
+#header {
+	margin-bottom: 5px;
+	padding: 10px;
+}
+
+#header h1 {
+	margin: 3px 0px 3px 0px;
+    font-size: 20px;
+}
+
+#header span.about {
+    font-size: normal;
+    color: #060;
+	font-weight: bold;
+}
+
+#footer {
+	margin-top: 5px;
+	vertical-align: middle;
+}
+
+
+#footer div {
+	display: inline;
+	vertical-align: middle;
+}
+
+#footer img {
+	padding-left: 10px;
+	border: none;
+	vertical-align: middle;
+}
+
+#login {
+	font-size: smaller;
+	border: thin solid #999;
+	background: #eee;
+	padding: 2px;
+	float: right;
+}
+
+div.loading {
+	width: 100%;
+	text-align: center;
+	margin: 15px;
+}
+
+fieldset {
+	border: thin solid #060;
+	margin: 10px 0px 10px 0px;
+}
+
+fieldset legend {
+	border: thin solid #060;
+	background:  #dfd;
+	color: #060;
+	font-weight: bold;
+	font-size: smaller;
+}
+
+
+/*
+  summary table
+*/
+table.summary {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+table.summary th, table.summary td {
+}
+table.summary th {
+	width: 10%;
+	text-align: right;
+	vertical-align: top;
+	border-right: 2px solid #060;
+	background: #dfd;
+	padding: 1px 0.5em 1px 1em;
+}
+table.summary td {
+	text-align: left;
+	width: 90%;
+}
+
+
+div.error {
+
+	margin: 20px 50px 20px 50px;
+	border: thin solid red;
+	color: red;
+	background: #fee;
+	padding: 10px;
+}
+
+pre.monospace {
+	font-family: courier new;
+	color: #666;
+}
+
+
+.float-right {					/* any */
+	float: right;
+}
+.float-left {					/* any */
+	float: left;
+}
+.note {							/* div */
+	color: #060;
+	font-size: small;
+	font-style: italic;
+}
+.inputcomment {					/* span */
+	margin: 0;
+	font-size: small;
+	font-style: italic;
+	color: #666;
+}
+
+
+li,dl,ul {
+	margin-top: 0;
+}
+
+/* OMIM display */
+dl.omim-entries {
+}
+dl.omim-entries dt {
+	font-weight: bold;
+	text-decoration: underline;
+}
+dl.omim-entry dt {
+	font-weight: normal;
+	text-decoration: underline;
+}
+dl.omim-references dt {
+	font-weight: normal;
+	text-decoration: none;
+}
+
+/* PubMed display */
+table.pubmed {
+	width: 100%;
+	border: thin solid;
+	border-collapse: collapse;
+}
+
+table.pubmed tr.odd {
+	background: #ccc;
+}
+table.pubmed tr.even {
+	background: #ddd;
+}
+table.pubmed tr:hover {
+	background: #eee;
+	border: thin solid #060;
+}
+
+
+/* .xlink, a[href^="http://"]:after { */
+.xlink:after {
+	content: "\21D7"; 
+    /* background: url(/static/gfx/href-external.gif) center right no-repeat;
+    padding-right: 13px; */
+}

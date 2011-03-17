@@ -1,0 +1,11 @@
+~$
+\.bak$
+index.yaml
+\.pyc$
+sample doc$
+sandbox/biosqlweb
+sandbox/LOVDv
+sandbox/resolveref
+Bio
+sandbox
+appengine/lib

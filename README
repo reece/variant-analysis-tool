@@ -1,0 +1,9 @@
+Genome Commons Variant Annotation Tool
+Reece Hart <reece@berkeley.edu>
+
+The Genome Commons Variant Analysis Tool facilitates the investigation of
+genomic variants.  The input is a single variant using standard HGVS
+nomenclature, and the output is a web page with publicly available
+information relevant to inferring possible impacts of the variant.  Data
+are provided from source databases directly and are therefore always
+up-to-date.

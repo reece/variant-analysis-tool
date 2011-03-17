@@ -1,0 +1,54 @@
+#!/usr/bin/python -tt
+
+from __future__ import print_function
+
+import os, sys, warnings
+
+sys.path.insert( 0, os.path.join(
+	os.path.dirname(os.path.realpath(__file__)),
+	'..', 'lib'
+	))
+
+from genomecommons.variantanalyzer import VariantAnalyzer
+from genomecommons.exceptions import *
+
+
+variants = [
+	'NG_003180.2:g.28906C>G',
+	'AB026906.1:g.7872G>T',
+	'AB026906.1:c.274G>T'
+
+
+#
+#	# following are from
+#	# http://jmd.amjpathol.org/cgi/content/full/9/1/1/T1
+#	'AJ574942.1:g.240G>T',
+#	'AJ574943.1:g.261G>T',
+#	'AJ574980.1:g.116G>A',
+#	'AJ574983.1:g.179G>A',
+#	'AJ574995.1:g.216G>A',
+#	'AJ575003.1:g.305G>T',
+#	'AY848832.1:g.40725C>T',
+#
+#	
+#	'AY848832:g.40725C>T',				# expect unversioned ref seq warning
+#
+#	# from jt den dunnen slides:
+#	'NM_012654.3:c.546A>T'				# this is a bogus reference sequence
+	]
+
+
+
+for v in sys.argv[1:]:
+	print('='*76, '\n*', v)
+	va = VariantAnalyzer(v)
+	print('parse: %s  =>  %s / %s / %s'
+		  % (va.origvs.varspec, va.origvs.accession,
+			 va.origvs.type, va.origvs.varlist))
+	print('id:%s, gi:%s' % (va.nuc_ac,va.nuc_gi))
+	print('gene: %s (%s; %s)' % (va.gene.name, va.gene.id, va.gene.description))
+	print('g:', str(va.g_varspec))
+	print('c:', str(va.c_varspec))
+	print('p:', str(va.p_varspec))
+	print('nuc url:', va.nuc.url)
+	print('gene url:', va.gene.url)

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+ <head>
+   <title>Genome Commons &gt; {{ pagetitle }}</title>
+   <link type="text/css" href="/static/styles/genomecommons.css" rel="Stylesheet" />
+   <link type="text/css" href="/static/styles/genomecommons-jquery-ui/jquery-ui-1.8.2.custom.css" rel="Stylesheet" />
+   <script type="text/javascript" src="/static/jquery/js/jquery-1.4.2.min.js"></script>
+   <script type="text/javascript" src="/static/jquery/js/jquery-ui-1.8.2.custom.min.js"></script>
+ </head>
+
+
+ <body>
+
+   <div id="header">
+	 <!--
+	 <div id="login">
+	   Welcome, Reece.
+	   <br><a href="#">logout</a> | <a href="#">profile</a>
+	 </div>
+	 -->
+	 <h1>Genome Commons &gt; {{ pagetitle }}</h1>
+	 <span class="about">{% block about %}(about){% endblock about %}</span>
+   </div>
+
+   {% if error %}
+   <div class="error">
+	 {{ error }}
+   </div>
+   {% endif %}
+
+   <div id="bodycontent">
+	 {% block bodycontent %}(bodycontent){% endblock bodycontent %}
+   </div>
+
+   <div id="footer">
+	 <div class="float-left">
+	   Questions? Comments? Bugs?
+	   <br><a href="mailto:reece@berkeley.edu?subject=Variant Analysis Tool&body=Hi Reece-%0A
+I've got a question about the Variant Analysis Tool [{{url}}]:%0A">Email Reece Hart</a>
+	 </div>
+
+	 <div class="float-right">
+	   <a href="http://berkeley.edu" title="University of California, Berkeley" target="_blank">
+		 <img src="/static/gfx/berkeley-logo.png" width=30 height=30 target="_blank" />
+	   </a>
+	   <a href="http://qb3.org" title="QB3: California Institute of Quantitative Biosciences" target="_blank">
+		 <img src="/static/gfx/qb3-logo.png" width=33 height=30 target="_blank" />
+	   </a>
+	   <a href="http://ccb.berkeley.edu" title="Berkeley Center for Computational Biology" target="_blank">
+		 <img src="/static/gfx/ccb-text-logo.png" width=156 height=30 target="_blank" />
+	   </a>
+	   <a href="http://celera.com" title="Celera (funding sponsor)" target="_blank">
+		 <img src="/static/gfx/celera-logo.png" width=10 height=30 target="_blank" />
+	   </a>
+	 </div>
+
+   </div>
+
+ </body>
+
+</html>

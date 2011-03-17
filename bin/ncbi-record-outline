@@ -1,0 +1,73 @@
+#!/usr/bin/python
+# ncbi-record-outline -- fetch something from eutils and print an outline
+
+# eg$ ./bin/ncbi-record-outline nucleotide 5295993
+#<class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#  Bioseq-set_seq-set => <class 'Bio.Entrez.Parser.ListElement'>; 1 elems
+#    0:<class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#      Seq-entry_set => <class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#        Bioseq-set => <class 'Bio.Entrez.Parser.DictionaryElement'>; 5 keys
+#          Bioseq-set_seq-set => <class 'Bio.Entrez.Parser.ListElement'>; 2 elems
+#            0:<class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#              Seq-entry_seq => <class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#                Bioseq => <class 'Bio.Entrez.Parser.DictionaryElement'>; 4 keys
+#                  Bioseq_id => <class 'Bio.Entrez.Parser.ListElement'>; 2 elems
+#                    0:<class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#                      Seq-id_ddbj => <class 'Bio.Entrez.Parser.DictionaryElement'>; 1 keys
+#                        Textseq-id => <class 'Bio.Entrez.Parser.DictionaryElement'>; 2 keys
+#                          Textseq-id_version => 1
+#                          Textseq-id_accession => AB026906
+# ...
+ 
+
+import os
+import sys
+
+from Bio import Entrez 
+
+sys.path.insert( 0, os.path.join(
+	os.path.dirname(os.path.realpath(__file__)),
+	'..', 'lib', 'GenomeCommons'
+	))
+
+from memoize import memoize
+
+
+Entrez.email = 'reece@berkeley.edu'
+Entrez.tool = __file__
+
+spil = 2
+
+def outline(node,indent=0,prefix='',maxlevel=0,path=''):
+	if indent == maxlevel:
+		return
+
+	# see following for tips on inferring object type
+	# http://www.voidspace.org.uk/python/articles/duck_typing.shtml
+	dt = ' '*spil*indent + prefix
+	if hasattr(node,'__getitem__'):
+		if hasattr(node,'keys'):
+			# dict-like thing
+			print dt + str(type(node)) + '; %d keys' % (len(node.keys()))
+			for k in node.keys():
+				outline(node=node[k],indent=indent+1,prefix=k+' => ',
+						maxlevel=maxlevel,path=path+"['%s']"%(k))
+		elif not isinstance(node,str):
+			# some other sequence-ish thing
+			print dt + str(type(node)) + '; %d elems' % (len(node))
+			for i in range(0,len(node)):
+				outline(node=node[i],indent=indent+1,prefix='%d:'%(i),
+						maxlevel=maxlevel,path=path+'[%s]'%(i))
+		else:
+			print dt + node + '\n  #' + path
+	else:
+		print dt + node + '\n  #' + path
+
+
+@memoize
+def fetch(db,id):
+	return Entrez.read( Entrez.efetch(db=db,id=id,rettype='xml') )
+
+if __name__ == '__main__':
+	data = fetch(sys.argv[1],sys.argv[2])
+	outline(data,maxlevel=30)

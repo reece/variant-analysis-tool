@@ -1,0 +1,87 @@
+{% extends "_base.html" %}
+
+{% block about %}
+Facilitates routine analysis of genomic variants
+{% endblock about %}
+
+{% block bodycontent %}
+
+<!--
+http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
+&#9654; solid right
+&#9698; solid lower right
+&#9660; solid down
+&#9655; empty right
+&#9727; empty lower right
+&#9661; empty down
+-->
+
+
+<form method="get">
+  Sequence variant: <input type="text" name="varspec" size=30 {% if varspec %}value="{{varspec}}"{% endif %}/>
+  <input type="submit"/>
+  <br><span class="inputcomment">
+	use <a class="xlink" href="http://www.hgvs.org/mutnomen/">HGVS nomenclature for the
+	  description of sequence variation</a>; e.g., NM_004006.2:c.3G>T</span>
+</form>
+
+{% if va %}
+<!-- begin results section -->
+<script type="text/javascript">
+  $(function() {
+  $("#tabs").tabs({
+			fx: { opacity: 'toggle' },
+    		select: function(event, ui) {
+		        var tabID = "#ui-tabs-" + (ui.index + 1);
+    			$(tabID).html('<div class="loading"><img height=100 width=100 src="/static/gfx/loading.gif"/><p><b>Loading. Please wait...</b></p></div>');
+			},
+			ajaxOptions: {
+				error: function(xhr, status, index, anchor) {
+					$(anchor.hash).html("An error occured loading this tab. Sorry.");
+				}
+			}
+		});
+	});
+</script>
+
+<hr>
+
+<div id="tabs">
+  <ul>
+	<li><a href="tab/summary?varspec={{varspec}}"    >summary</a></li>
+	<li><a href="tab/omim?varspec={{varspec}}"   	 >omim</a></li>
+	<li><a href="tab/variants?varspec={{varspec}}"   >variants</a></li>
+	<li><a href="tab/pubmed?varspec={{varspec}}"     >pubmed</a></li>
+	<li><a href="tab/links?varspec={{varspec}}"      >links</a></li>
+	<li><a href="tab/report?varspec={{varspec}}"     >report</a></li>
+	<li style="float:right; margin-right: 0"><a href="#about-tab"      >about</a></li>
+  </ul>
+  <div id="about-tab" class="tab">
+	<b>The Variant Analysis Tool is a web portal for the analysis of
+	nucleotide and protein variants.</b> All data are retrieved on-the-fly
+	from NCBI using Entrez Utilities.
+
+	<p>Contact: Reece Hart</p>
+
+	Thanks to:
+	  <ul style="margin-top: 0">
+		<li>Colleen Brown, Peggy Conrad, and Robert Nussbaum for ideas and
+		feedback</li>
+		<li>Steven Brenner and Jasper Rine for support</li>
+		<li>Celera (Celera Innovation Fellowship)</li>
+		<li>UC Berkeley Center for Computational Biology and QB3</li>
+		<li>NCBI for data and Entrez Utilities</li>
+	  </ul>
+	  
+	<p>The source code for the Variant Analysis Tool is available
+	at <a href="http://bitbucket.org/reece/variant-analysis-tool">
+	http://bitbucket.org/reece/variant-analysis-tool</a>.
+
+  </div>
+
+</div>
+
+{% endif %}
+<!-- end results section -->
+
+{% endblock bodycontent %}

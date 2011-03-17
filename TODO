@@ -1,3 +1,4 @@
+
 TODO: 										-*-outline-*-
 
 * collect gene info
@@ -7,6 +8,7 @@ TODO: 										-*-outline-*-
 ftp://ftp.ncbi.nih.gov/pub/GeneTests/
 http://www.ncbi.nlm.nih.gov/sites/GeneTests/lab/clinical_disease_id/2764?db=genetests
 ftp://ftp.ncbi.nih.gov/pub/GeneTests/README.html
+http://ghr.nlm.nih.gov/gene=TGFBR2
 * link to linkouts (incl, Unison)
 * add support for protein HGVS spec
 * collect dbSNP variants
@@ -14,4 +16,5 @@ ftp://ftp.ncbi.nih.gov/pub/GeneTests/README.html
 * link to SIFT a/o PolyPhen
 * link to trials
 clinicaltrials.gov
+
 

@@ -33,7 +33,7 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 			fx: { opacity: 'toggle' },
     		select: function(event, ui) {
 		        var tabID = "#ui-tabs-" + (ui.index + 1);
-    			$(tabID).html('<div class="loading"><img height=100 width=100 src="/static/gfx/loading.gif"/><p><b>Loading. Please wait...</b></p></div>');
+    			$(tabID).html('<div class="loading"><img height=100 width=100 src="/static/gfx/loading-wheel.gif"/><p><b>Loading. Please wait...</b></p></div>');
 			},
 			ajaxOptions: {
 				error: function(xhr, status, index, anchor) {
@@ -49,11 +49,12 @@ http://en.wikipedia.org/wiki/Unicode_Geometric_Shapes
 <div id="tabs">
   <ul>
 	<li><a href="tab/summary?varspec={{varspec}}"    >summary</a></li>
-	<li><a href="tab/omim?varspec={{varspec}}"   	 >omim</a></li>
 	<li><a href="tab/variants?varspec={{varspec}}"   >variants</a></li>
+	<li><a href="tab/omim?varspec={{varspec}}"   	 >omim</a></li>
 	<li><a href="tab/pubmed?varspec={{varspec}}"     >pubmed</a></li>
 	<li><a href="tab/links?varspec={{varspec}}"      >links</a></li>
-	<li><a href="tab/report?varspec={{varspec}}"     >report</a></li>
+	<li><a href="tab/tools?varspec={{varspec}}"      >tools</a></li>
+	<li><a href="tab/genereviews?varspec={{varspec}}">genereviews</a></li>
 	<li style="float:right; margin-right: 0"><a href="#about-tab"      >about</a></li>
   </ul>
   <div id="about-tab" class="tab">

@@ -164,14 +164,11 @@ table.pubmed {
 	border-collapse: collapse;
 }
 
-table.pubmed tr.odd {
-	background: #ccc;
-}
-table.pubmed tr.even {
-	background: #ddd;
+table.pubmed tr {
+	border: thin solid #bbb;
 }
 table.pubmed tr:hover {
-	background: #eee;
+	background: #dfd;
 	border: thin solid #060;
 }
 

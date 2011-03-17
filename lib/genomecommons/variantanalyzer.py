@@ -16,10 +16,20 @@ os.linesep = '\n'
 
 class VariantAnalyzer(object):
 	def __init__(self,varspec):
-		self.origvs = HGVSVarSpec(varspec)
-		self.vs = { 'c': None, 'g': None, 'p': None }
-		self.vs[self.origvs.type] = self.origvs	# type in {c,g,p}
 		self._derived_varspecs = 0
+		self.orig_varspec = HGVSVarSpec(varspec)
+		self.g_varspec = None
+		self.c_varspec = None
+		self.p_varspec = None
+		if self.orig_varspec.type == 'c':
+			c_varspec = self.orig_varspec
+		elif self.orig_varspec.type == 'g':
+			g_varspec = self.orig_varspec
+		elif self.orig_varspec.type == 'p':
+			p_varspec = self.orig_varspec
+		else:
+			raise ValueError('Variant type %s is not implemented'
+							 % self.orig_varspec.type)
 
 	@property
 	def gene(self):
@@ -60,8 +70,8 @@ class VariantAnalyzer(object):
 
 	@property
 	def nuc_ac(self):
-		if self.origvs.type in ('c','g'):
-			return self.origvs.accession
+		if self.orig_varspec.type in ('c','g'):
+			return self.orig_varspec.accession
 		return None
 
 	@property
@@ -75,28 +85,13 @@ class VariantAnalyzer(object):
 		#http://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?locusId=6392
 		pass
 
-	@property
-	def g_varspec(self):
-		self.derive_varspecs()
-		return self.vs['g']
-
-	@property
-	def c_varspec(self):
-		self.derive_varspecs()
-		return self.vs['c']
-
-	@property
-	def p_varspec(self):
-		self.derive_varspecs()
-		return self.vs['p']
-
 
 	def derive_varspecs(self):
 		if self._derived_varspecs != 0:
 			return
 		self._derived_varspecs = 1
 
-		ovs = self.origvs
+		ovs = self.orig_varspec
 		m = re.match(r'(\d+)(\w>\w)',ovs.varlist[0])
 		if m is None:
 			raise SyntaxError
@@ -112,30 +107,39 @@ class VariantAnalyzer(object):
 			var0 = ovs.var_i(0)
 			vartxt = '%s:c.%s%s' % (ovs.accession,
 				cm.genome_to_cds(var0['pos']-1)+1, var0['mut'])
-			self.vs['c'] = HGVSVarSpec(vartxt)
+			self.c_varspec = HGVSVarSpec(vartxt)
 		elif ovs.type == 'c':
 			var0 = ovs.var_i(0)
 			print var0
 			vartxt = '%s:g.%s%s' % (ovs.accession,
 				cm.cds_to_genome(var0['pos']-1)+1, var0['mut'])
-			self.vs['g'] = HGVSVarSpec(vartxt)
+			self.g_varspec = HGVSVarSpec(vartxt)
 
-		var0 = self.vs['c'].var_i(0)
+		var0 = self.c_varspec.var_i(0)
+		# FIXME: the following are placeholders for the real derived
+		# sequence
 		pro_ac = 'proid'
 		aa_wt = 'Aaa'
 		aa_var = 'Bbb'
 		vartxt = '%s:p.%s%s%s' % (pro_ac,
 					aa_wt, cm.cds_to_protein(var0['pos']-1)+1, aa_var)
-		self.vs['p'] = HGVSVarSpec(vartxt)
+		self.p_varspec = HGVSVarSpec(vartxt)
 
 
 
 if __name__ == '__main__':
 	from pprint import pprint
 
-	vstext = 'AB026906.1:g.7872G>T'
-	va = VariantAnalyzer(vstext)
-	print 'nuc_ac:', va.nuc_ac
-	print 'nuc_gi:', va.nuc_gi
+	for vstext in [
+		'AB026906.1:g.7872G>T',
+		]:
+		print('* %s' % vstext)
+		va = VariantAnalyzer(vstext)
+		print 'ac:', va.nuc_ac
+		print 'nuc_gi:', va.nuc_gi
 
-	pprint(va.pubmeds)
+
+# snp urls:
+# http://www.ncbi.nlm.nih.gov/projects/SNP/SNPeutils.htm
+# http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=snp&id=3000&report=Brief
+# 
